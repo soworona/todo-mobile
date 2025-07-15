@@ -4,12 +4,13 @@ import HomeScreen from './screen/HomeScreen';
 import { createStaticNavigation } from '@react-navigation/native';
 import ActiveScreen from './screen/ActiveScreen';
 import CompletedScreen from './screen/CompletedScreen';
-import AllScreen from './screen/AllScreen';
+import AllScreen from './screen/AddTodo';
+import AddTodoScreen from './screen/AddTodo';
 
 const RootStack = createNativeStackNavigator({
   screens: {
     Home: HomeScreen,
-    Active: ActiveScreen,
+    AddTodo: AddTodoScreen,
     Completed: CompletedScreen,
     All: AllScreen
   },
