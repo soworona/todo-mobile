@@ -2,10 +2,8 @@ import { useTheme } from '@react-navigation/native';
 import { StyleSheet, Text, TextInput, useColorScheme, View } from 'react-native';
 
 type InputTextProps = {
-  label?: string;
+  label: string;
   value: string;
-  placeholder?: string
-  secureText?: boolean;
   onChangeText: (text: string) => void;
 };
 const InputComponent = (props: InputTextProps) => {
@@ -19,9 +17,6 @@ const InputComponent = (props: InputTextProps) => {
       <TextInput 
       style={[styles.input, {color: colors.text, backgroundColor: colors.card, borderColor:colors.border}]} 
       value={props.value}
-      secureTextEntry={props.secureText} 
-      placeholder={props.placeholder} 
-      placeholderTextColor={colors.text}
       onChangeText={props.onChangeText} />
     </View>
   );
