@@ -3,14 +3,27 @@ import InputComponent from '../components/InputComponent';
 import { useState } from 'react';
 import BtnComponent from '../components/BtnComponent';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Task } from './HomeScreen';
+
+type RootStackParamList = {
+  Home: { newTodo?: Task };
+  AddTodo: undefined;
+};
+
+type AddTodoScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'AddTodo'
+>;
 
 const AddTodoScreen = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigation = useNavigation();
 
-  const handleSaveTodo= (title: string, description: string) =>{
-    const newTodo = { title:title, description: description, isComplete: false};
+  const handleSaveTodo= () =>{
+    const newTodo = { title, description, isComplete: false};
+    navigation.navigate('Home', {newTodo});
   }
 
   return (
@@ -21,11 +34,11 @@ const AddTodoScreen = () => {
         value={description}
         onChangeText={setDescription}
       />
-      <BtnComponent label="Save" onPress={() =>{handleSaveTodo(title, description)}} />
+      <BtnComponent label="Save" onPress={handleSaveTodo} />
       <BtnComponent
         label="Cancel"
         onPress={() => {
-          navigation.navigate('Home');
+          navigation.goBack();
         }}
       />
     </View>

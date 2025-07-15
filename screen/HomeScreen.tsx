@@ -2,20 +2,45 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../components/AddBtnComponent';
 import IconBtnComponent from '../components/IconBtnComponent';
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import TaskCardComponent from '../components/TaskCardComponent';
 
 export type Task = {
   title: string;
+  description: string;
   isComplete: boolean;
+};
+
+type TodoRouteParams = {
+  newTodo?: {
+    title: string;
+    description: string;
+    isComplete: boolean;
+  };
 };
 
 const Todo = () => {
   const navigation = useNavigation();
+  const route = useRoute<RouteProp<{ Home: TodoRouteParams }, 'Home'>>();
+  const [todoList, setTodoList] = useState<Task[]>([]);
 
-    return (
+  useEffect(() => {
+    const newTodo = route.params?.newTodo as Task;
+    if (newTodo) {
+      setTodoList(prev => [...prev, newTodo]);
+      console.log('Added new todo:', newTodo);
+    }
+  }, [route.params?.newTodo]);
+
+  return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
-      <ScrollView style={styles.container}></ScrollView>
+      <ScrollView style={styles.container}>
+        {todoList.map((task, index) => (
+          <TaskCardComponent key={index} task={task} />
+        ))}
+      </ScrollView>
 
       {/* Main container ends */}
 
@@ -29,8 +54,11 @@ const Todo = () => {
         ]}
       >
         <IconBtnComponent label="Home" icon="home" onPress={() => {}} />
-        <AddBtnComponent onPress={() => {
-          navigation.navigate('AddTodo');}}/>
+        <AddBtnComponent
+          onPress={() => {
+            navigation.navigate('AddTodo');
+          }}
+        />
         <IconBtnComponent label="Profile" icon="profile" onPress={() => {}} />
       </View>
     </SafeAreaView>
