@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../components/AddBtnComponent';
 import IconBtnComponent from '../components/IconBtnComponent';
-import {useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import TaskCardComponent from '../components/TaskCardComponent';
 import { useAppSelector } from '../redux/hook';
 
@@ -21,7 +21,13 @@ const Todo = () => {
       {/* Main container starts */}
       <ScrollView style={styles.container}>
         {todoList.map((task, index) => (
-          <TaskCardComponent key={index} task={task} />
+          <TaskCardComponent
+            key={index}
+            task={task}
+            onPress={() => {
+              navigation.navigate('Details', { task });
+            }}
+          />
         ))}
       </ScrollView>
 

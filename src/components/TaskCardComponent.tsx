@@ -8,13 +8,14 @@ import { Task } from '../screens/HomeScreen';
 type TaskCardComponentProps = {
   key: number;
   task: Task;
+  onPress: () => void
 };
 
 const TaskCardComponent = (props: TaskCardComponentProps) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Text style={styles.smallTxt}>{props.task.title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -27,8 +28,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignContent: 'center',
     marginBottom: 10,
-    borderWidth:1,
-    borderColor:' #99d29cff'
+    borderColor:' #99d29cff',
+    backgroundColor: '#d6e6cdff'
   },
   smallTxt: {
     fontSize: 18,
