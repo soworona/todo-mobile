@@ -39,6 +39,7 @@ const Todo = () => {
       <ScrollView style={styles.container}>
         {todoList.map((task, index) => (
           <TaskCardComponent key={index} task={task} />
+
         ))}
       </ScrollView>
 

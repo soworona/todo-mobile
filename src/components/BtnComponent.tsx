@@ -8,14 +8,14 @@ type BtnComponentProps = {
 const BtnComponent = (props: BtnComponentProps) => {
   return props.label === 'Save' ? (
     <TouchableOpacity
-      style={[styles.backgroundStyle, { backgroundColor: '#0098FF' }]}
+      style={[styles.backgroundStyle, { backgroundColor: '#7fa381ff' }]}
       onPress={props.onPress}
     >
       <Text style={styles.txt}>{props.label}</Text>
     </TouchableOpacity>
   ) : (
     <TouchableOpacity
-      style={[styles.backgroundStyle, { backgroundColor: 'gray' }]}
+      style={[styles.backgroundStyle, { backgroundColor: '#bfc6c0ff' }]}
       onPress={props.onPress}
     >
       <Text style={styles.txt}>{props.label}</Text>
@@ -26,7 +26,7 @@ const BtnComponent = (props: BtnComponentProps) => {
 const styles = StyleSheet.create({
   backgroundStyle: {
     width: '100%',
-    borderRadius: 10,
+    borderRadius: 5,
     height: 50,
     alignItems: 'center',
     paddingVertical: 14,

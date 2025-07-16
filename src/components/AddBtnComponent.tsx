@@ -26,15 +26,15 @@ const styles = StyleSheet.create({
     width: 45,
   },
   icon: {
-    backgroundColor: '#0098FF',
-    borderRadius: 10,
-    height: 55,
-    width: 55,
+    backgroundColor: '#7dac80ff',
+    borderRadius:20,
+    height: 60,
+    width: 60,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    left:170,
-    bottom: 50,
+    left:160,
+    bottom: 45,
   },
 });
 

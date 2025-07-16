@@ -18,8 +18,8 @@ const IconBtnComponent = (props: IconButtonProps) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Icon name={IconMap[props.icon]} size={25} color={colors.text} />
-      <Text style={{ color: colors.text, fontSize: 12 }}> {props.label} </Text>
+      <Icon name={IconMap[props.icon]} size={25} color='#638265ff' />
+      <Text style={{ color: '#638265ff', fontSize: 12 }}> {props.label} </Text>
     </TouchableOpacity>
   )
 };
