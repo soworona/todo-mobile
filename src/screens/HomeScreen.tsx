@@ -2,9 +2,9 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../components/AddBtnComponent';
 import IconBtnComponent from '../components/IconBtnComponent';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import {useNavigation } from '@react-navigation/native';
 import TaskCardComponent from '../components/TaskCardComponent';
+import { useAppSelector } from '../redux/hook';
 
 export type Task = {
   title: string;
@@ -12,26 +12,9 @@ export type Task = {
   isComplete: boolean;
 };
 
-type TodoRouteParams = {
-  newTodo?: {
-    title: string;
-    description: string;
-    isComplete: boolean;
-  };
-};
-
 const Todo = () => {
   const navigation = useNavigation();
-  const route = useRoute<RouteProp<{ Home: TodoRouteParams }, 'Home'>>();
-  const [todoList, setTodoList] = useState<Task[]>([]);
-
-  useEffect(() => {
-    const newTodo = route.params?.newTodo as Task;
-    if (newTodo) {
-      setTodoList(prev => [...prev, newTodo]);
-      console.log('Added new todo:', newTodo);
-    }
-  }, [route.params?.newTodo]);
+  const todoList = useAppSelector(state => state.todos.todos);
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -39,7 +22,6 @@ const Todo = () => {
       <ScrollView style={styles.container}>
         {todoList.map((task, index) => (
           <TaskCardComponent key={index} task={task} />
-
         ))}
       </ScrollView>
 

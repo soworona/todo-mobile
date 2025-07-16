@@ -12,19 +12,8 @@ type TaskCardComponentProps = {
 
 const TaskCardComponent = (props: TaskCardComponentProps) => {
   return (
-    <View>
-
     <View style={styles.container}>
       <Text style={styles.smallTxt}>{props.task.title}</Text>
-    </View>
-
-        <View style={styles.container}>
-      <Text style={styles.smallTxt}>{props.task.title}</Text>
-    </View>
-
-        <View style={styles.container}>
-      <Text style={styles.smallTxt}>{props.task.title}</Text>
-    </View>
     </View>
   );
 };

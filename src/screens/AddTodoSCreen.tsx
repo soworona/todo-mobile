@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Task } from './HomeScreen';
 import { useAppDispatch } from '../redux/hook';
+import { addTodo } from '../redux/slices/todoSlice';
 
 type RootStackParamList = {
   Home: { newTodo?: Task };
