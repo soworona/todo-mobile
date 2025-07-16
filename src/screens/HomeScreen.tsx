@@ -4,7 +4,8 @@ import AddBtnComponent from '../components/AddBtnComponent';
 import IconBtnComponent from '../components/IconBtnComponent';
 import { useNavigation } from '@react-navigation/native';
 import TaskCardComponent from '../components/TaskCardComponent';
-import { useAppSelector } from '../redux/hook';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { setSelectedTodo } from '../redux/slices/todoSlice';
 
 export type Task = {
   title: string;
@@ -15,7 +16,8 @@ export type Task = {
 const Todo = () => {
   const navigation = useNavigation();
   const todoList = useAppSelector(state => state.todos.todos);
-
+  const dispatch = useAppDispatch();
+  
   return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
@@ -25,7 +27,8 @@ const Todo = () => {
             key={index}
             task={task}
             onPress={() => {
-              navigation.navigate('Details', { task });
+              dispatch(setSelectedTodo(task));
+              navigation.navigate('Details');
             }}
           />
         ))}
