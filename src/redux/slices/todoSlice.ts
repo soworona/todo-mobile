@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../screens/HomeScreen";
+import { Task } from "../../screens/HomeScreen";
 
 type TodoList = {
     todos: Task[]
