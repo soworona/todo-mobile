@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../screens/HomeScreen";
 
 type TodoList = {
@@ -8,16 +8,19 @@ const initialState: TodoList = {
     todos: []
 }
 
-export const todoSlice = createSlice({
-    name: "todo",
+const todoSlice = createSlice({
+    name: "todos",
     initialState,
     reducers: {
-        addTodo: (state, {payload: {title, description, isComplete}}) => {
-            state.todos.push({ title, description, isComplete})
+        addTodo: (state, action: PayloadAction<{title: string, description: string}>) => {
+            state.todos.push({ 
+                title: action.payload.title, 
+                description:action.payload.description, 
+                isComplete:false })
         },
     }
 })
 
-export const addTodo = todoSlice.actions;
+export const { addTodo } = todoSlice.actions;
 
-export default todoSlice.reducer
+export default todoSlice.reducer;
