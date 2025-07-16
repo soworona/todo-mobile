@@ -5,6 +5,7 @@ import BtnComponent from '../components/BtnComponent';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Task } from './HomeScreen';
+import { useAppDispatch } from '../redux/hook';
 
 type RootStackParamList = {
   Home: { newTodo?: Task };
@@ -20,10 +21,11 @@ const AddTodoScreen = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
 
   const handleSaveTodo= () =>{
-    const newTodo = { title, description, isComplete: false};
-    navigation.navigate('Home', {newTodo});
+    dispatch(addTodo({ title, description }));
+    navigation.goBack();
   }
 
   return (
