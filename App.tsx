@@ -11,7 +11,10 @@ import MenuScreen from './src/screens/MenuScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 
-const Stack = createNativeStackNavigator();
+export type ScreenNames = ["Home", "AddTodo", "Details"]
+export type RootStackParamList = Record<ScreenNames[number], undefined>;
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 function HomeStack() {
@@ -32,7 +35,7 @@ export default function App() {
         screenOptions={{ 
           headerShown: false,
           tabBarShowLabel: true,
-          tabBarStyle:{backgroundColor:'#638265ff', height:65},
+          tabBarStyle:{backgroundColor:'#638265ff', height:70},
           tabBarInactiveTintColor:"#dae2da",
           tabBarActiveTintColor:"white",
 

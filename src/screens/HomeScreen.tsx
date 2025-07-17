@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import TaskCardComponent from '../components/TaskCardComponent';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { getTodoById } from '../redux/slices/todoSlice';
+import { StackNavigation } from '../../App';
 
 export type Task = {
   id:string;
@@ -14,7 +15,7 @@ export type Task = {
 };
 
 const Todo = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigation>();
   const todoList = useAppSelector(state => state.todos.todos);
   const dispatch = useAppDispatch();
   
@@ -24,6 +25,7 @@ const Todo = () => {
       <ScrollView style={styles.container}>
         {todoList.map(( task ) => (
           <TaskCardComponent
+            key={task.id}
             task={task}
             onPress={() => {
               dispatch(getTodoById(task.id));
