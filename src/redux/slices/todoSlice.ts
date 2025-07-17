@@ -22,7 +22,7 @@ const todoSlice = createSlice({
         },
         setSelectedTodo: (state, action: PayloadAction<Task>) =>{
             state.selectedTodo = action.payload;
-        }
+        },
     }
 })
 
