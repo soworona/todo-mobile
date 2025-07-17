@@ -21,20 +21,16 @@ const AddBtnComponent = (props: AddBtnComponentProps) => {
 };
 
 const styles = StyleSheet.create({
-  avatar: {
-    height: 45,
-    width: 45,
-  },
   icon: {
     backgroundColor: '#7dac80ff',
-    borderRadius:20,
-    height: 60,
-    width: 60,
+    borderRadius:15,
+    height: 55,
+    width: 55,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'absolute',
-    left:165,
-    bottom: 45,
+    right:20,
+    bottom: 25,
   },
 });
 

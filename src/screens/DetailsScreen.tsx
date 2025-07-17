@@ -2,7 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useAppSelector } from '../redux/hook';
 
 const DetailsScreen = () => {
-  const task = useAppSelector(state => state.todos.selectedTodo);
+  const taskId = useAppSelector(state => state.todos.selectedTodoId);
+  const task = useAppSelector(state =>   state.todos.todos.find(t => t.id === taskId))
   return (
     <View style={styles.container}>
       <View>

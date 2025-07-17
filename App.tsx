@@ -32,9 +32,10 @@ export default function App() {
         screenOptions={{ 
           headerShown: false,
           tabBarShowLabel: true,
-          tabBarStyle:{backgroundColor:'#638265ff'},
+          tabBarStyle:{backgroundColor:'#638265ff', height:65},
           tabBarInactiveTintColor:"#dae2da",
           tabBarActiveTintColor:"white",
+
           }}>
           <Tab.Screen
             name="Home"

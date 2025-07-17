@@ -4,12 +4,11 @@ import { useTheme } from '@react-navigation/native';
 
 type IconButtonProps = {
   icon: string;
-  label?: string;
-  onPress?: () => void;
+  onPress: () => void;
 };
 
 const IconMap: Record<string, any> = {
-  home: 'house',
+  home: 'delete-outline',
   profile: 'face',
 };
 
@@ -18,20 +17,15 @@ const IconBtnComponent = (props: IconButtonProps) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Icon name={IconMap[props.icon]} size={25} color='#638265ff' />
-      <Text style={{ color: '#638265ff', fontSize: 12 }}> {props.label} </Text>
+      <Icon name={IconMap[props.icon]} size={24} color='#638265ff' />
     </TouchableOpacity>
   )
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    marginTop: 2,
+    zIndex:10,
+    padding:5,
   },
 });
 

@@ -1,13 +1,13 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../components/AddBtnComponent';
-import IconBtnComponent from '../components/IconBtnComponent';
 import { useNavigation } from '@react-navigation/native';
 import TaskCardComponent from '../components/TaskCardComponent';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
-import { setSelectedTodo } from '../redux/slices/todoSlice';
+import { getTodoById } from '../redux/slices/todoSlice';
 
 export type Task = {
+  id:string;
   title: string;
   description: string;
   isComplete: boolean;
@@ -24,10 +24,9 @@ const Todo = () => {
       <ScrollView style={styles.container}>
         {todoList.map((task, index) => (
           <TaskCardComponent
-            key={index}
             task={task}
             onPress={() => {
-              dispatch(setSelectedTodo(task));
+              dispatch(getTodoById(task.id));
               navigation.navigate('Details');
             }}
           />
@@ -35,24 +34,12 @@ const Todo = () => {
       </ScrollView>
 
       {/* Main container ends */}
-
-      <View
-        style={[
-          styles.navbar,
-          {
-            borderColor: 'gray',
-            borderTopWidth: 1,
-          },
-        ]}
-      >
-        <IconBtnComponent label="Home" icon="home" onPress={() => {}} />
         <AddBtnComponent
           onPress={() => {
             navigation.navigate('AddTodo');
           }}
         />
-        <IconBtnComponent label="Profile" icon="profile" onPress={() => {}} />
-      </View>
+      
     </SafeAreaView>
   );
 };
@@ -61,13 +48,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  navbar: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-  },
+
   container: {
     zIndex: 0,
     flexGrow: 1,

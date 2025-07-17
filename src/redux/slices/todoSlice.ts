@@ -1,13 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../screens/HomeScreen";
+import { act } from "react";
 
 type TodoState = {
     todos: Task[],
-    selectedTodo: Task | null
+    selectedTodoId: string
 }
 const initialState: TodoState = {
     todos: [],
-    selectedTodo: null
+    selectedTodoId: ''
+    
 }
 
 const todoSlice = createSlice({
@@ -16,16 +18,23 @@ const todoSlice = createSlice({
     reducers: {
         addTodo: (state, action: PayloadAction<{title: string, description: string}>) => {
             state.todos.push({ 
+                id: nanoid(),
                 title: action.payload.title, 
                 description:action.payload.description, 
                 isComplete:false })
         },
-        setSelectedTodo: (state, action: PayloadAction<Task>) =>{
-            state.selectedTodo = action.payload;
+        getTodoById: (state, action: PayloadAction<string>) =>{
+            state.selectedTodoId = action.payload
         },
+        toggleTodoStatus: (state, action: PayloadAction<{id: string, isComplete: boolean}>) =>{
+            const todo = state.todos.find(t => t.id === action.payload.id)
+            if(todo){
+                todo.isComplete = action.payload.isComplete;  
+            }      
+        }
     }
 })
 
-export const { addTodo, setSelectedTodo } = todoSlice.actions;
+export const { addTodo, getTodoById, toggleTodoStatus } = todoSlice.actions;
 
 export default todoSlice.reducer;

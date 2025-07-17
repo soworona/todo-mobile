@@ -11,16 +11,18 @@ const CheckBoxComponent = (props : CheckBoxComponentProps) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress = {onPress}>
-    {isChecked && <Icon name='check' size={24} color="#000" />}
+    {isChecked && <Icon name='check' size={22} color="#638265ff" />}
     </TouchableOpacity>
   )
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 20,
-    width: 20,
-    borderWidth: 2,
+    height: 25,
+    width: 25,
+    borderColor:'#B2BAB2',
+    borderWidth:1,
+    borderRadius:5,
     alignItems: "center",
     justifyContent: "center",
   },

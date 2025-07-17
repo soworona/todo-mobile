@@ -1,22 +1,38 @@
 import { Text } from '@react-navigation/elements';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
-import { useTheme } from '@react-navigation/native';
-import Icon from '@react-native-vector-icons/material-icons';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Task } from '../screens/HomeScreen';
 import CheckBoxComponent from './CheckboxComponent';
+import { useAppDispatch } from '../redux/hook';
+import { toggleTodoStatus } from '../redux/slices/todoSlice';
+import IconBtnComponent from './IconBtnComponent';
 
 type TaskCardComponentProps = {
-  key: number;
   task: Task;
   onPress: () => void;
 };
 
 const TaskCardComponent = (props: TaskCardComponentProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleCheckBoxPress = () => {
+    dispatch(
+      toggleTodoStatus({
+        id: props.task.id,
+        isComplete: !props.task.isComplete,
+      }),
+    );
+  };
+
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      {/* <CheckBoxComponent onPress={()=>{}} isChecked={}/> */}
+      <CheckBoxComponent
+        isChecked={props.task.isComplete}
+        onPress={handleCheckBoxPress}
+      />
       <Text style={styles.smallTxt}>{props.task.title}</Text>
+      <View style={styles.icon}>
+      <IconBtnComponent icon='home' onPress={()=>{}} />
+      </View>
     </TouchableOpacity>
   );
 };
@@ -24,19 +40,25 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 10,
-    paddingVertical: 15,
+    gap: 15,
+    paddingVertical: 20,
     paddingHorizontal: 20,
-    borderRadius: 5,
-    alignContent: 'center',
-    marginBottom: 10,
-    borderColor: ' #99d29cff',
-    backgroundColor: '#d6e6cdff',
+    borderRadius: 15,
+    marginBottom: 25,
+    borderWidth: 1,
+    borderColor: '#B2BAB2',
+    backgroundColor: 'white',
+    alignItems: 'center'
   },
   smallTxt: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 400,
+    color:'#2A2C2A'
   },
+  icon:{
+    position:'absolute',
+    right:0
+  }
 });
 
 export default TaskCardComponent;
