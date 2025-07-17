@@ -23,11 +23,6 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
     );
   };
 
-  const handleDeleteBtnPress = () => {
-    dispatch(deleteTodo({
-      id: props.task.id
-    }))
-  }
 
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
@@ -37,7 +32,6 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
       />
       <Text style={styles.smallTxt}>{props.task.title}</Text>
       <View style={styles.icon}>
-      <IconBtnComponent icon='home' onPress={handleDeleteBtnPress} />
       </View>
     </TouchableOpacity>
   );
