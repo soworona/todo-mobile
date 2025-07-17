@@ -22,7 +22,7 @@ const Todo = () => {
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
       <ScrollView style={styles.container}>
-        {todoList.map((task, index) => (
+        {todoList.map(( task ) => (
           <TaskCardComponent
             task={task}
             onPress={() => {

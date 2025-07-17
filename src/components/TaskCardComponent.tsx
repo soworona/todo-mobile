@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Task } from '../screens/HomeScreen';
 import CheckBoxComponent from './CheckboxComponent';
 import { useAppDispatch } from '../redux/hook';
-import { toggleTodoStatus } from '../redux/slices/todoSlice';
+import { deleteTodo, toggleTodoStatus } from '../redux/slices/todoSlice';
 import IconBtnComponent from './IconBtnComponent';
 
 type TaskCardComponentProps = {
@@ -23,6 +23,12 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
     );
   };
 
+  const handleDeleteBtnPress = () => {
+    dispatch(deleteTodo({
+      id: props.task.id
+    }))
+  }
+
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <CheckBoxComponent
@@ -31,7 +37,7 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
       />
       <Text style={styles.smallTxt}>{props.task.title}</Text>
       <View style={styles.icon}>
-      <IconBtnComponent icon='home' onPress={()=>{}} />
+      <IconBtnComponent icon='home' onPress={handleDeleteBtnPress} />
       </View>
     </TouchableOpacity>
   );
