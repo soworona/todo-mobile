@@ -9,7 +9,8 @@ const Stack = createNativeStackNavigator<StackParamList>();
 
 const RootStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Todo">
+    <Stack.Navigator 
+    initialRouteName="Todo">
       <Stack.Screen
         name="Todo"
         component={HomeTabs}
@@ -25,9 +26,9 @@ const RootStack = () => {
           animation: 'slide_from_bottom',
           headerLeft: () => (
             <MaterialIcons
-              name="arrow-back-ios-new"
-              size={18}
-              style={{ marginRight: 5 }}
+              name="clear"
+              size={20}
+              style={{ paddingRight:15, paddingTop:6}}
               onPress={navigation.goBack}
               />
           ),
@@ -40,9 +41,9 @@ const RootStack = () => {
           animation: 'slide_from_bottom',
           headerLeft: () => (
             <MaterialIcons
-              name="arrow-back-ios-new"
-              size={18}
-              style={{ paddingRight:10, paddingTop:6}}
+              name="clear"
+              size={20}
+              style={{ paddingRight:15, paddingTop:6}}
               onPress={navigation.goBack}
               />
           ),
