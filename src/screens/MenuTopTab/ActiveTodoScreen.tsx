@@ -1,9 +1,9 @@
 import { ScrollView, View } from 'react-native';
-import { styles } from './AllTodoScreen';
 import TaskCardComponent from '../../components/TaskCardComponent';
 import { getTodoById } from '../../redux/slices/todoSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { MenuTopTabScreenProps } from '../../navigation/types';
+import { styles } from './styles';
 
 const ActiveTodoScreen = ({ navigation }: MenuTopTabScreenProps<'Active'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
