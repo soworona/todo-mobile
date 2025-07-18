@@ -7,7 +7,6 @@ import { deleteTodo, toggleTodoStatus } from '../redux/slices/todoSlice';
 import IconBtnComponent from './IconBtnComponent';
 
 type TaskCardComponentProps = {
-  key: string
   task: Task;
   onPress: () => void;
 };

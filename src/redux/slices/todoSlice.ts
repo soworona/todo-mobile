@@ -1,15 +1,13 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../screens/HomeBottomTab/TodoScreen";
-import { act } from "react";
 
 type TodoState = {
     todos: Task[],
-    selectedTodoId: string
+    selectedTodoId: string,
 }
 const initialState: TodoState = {
     todos: [],
-    selectedTodoId: ''
-    
+    selectedTodoId: '',
 }
 
 const todoSlice = createSlice({
@@ -33,12 +31,9 @@ const todoSlice = createSlice({
             }    
         },
         deleteTodo: (state, action: PayloadAction<{id : string}>) => {
-            const toDelete = state.todos.find(t => t.id === action.payload.id)
-            if(toDelete){
-                state.todos.filter(t => t !== toDelete);
-            }
-
+            state.todos = state.todos.filter(t => t.id !== action.payload.id);
         }
+        
     }
 })
 

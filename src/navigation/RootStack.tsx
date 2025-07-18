@@ -4,7 +4,7 @@ import AddTodoScreen from "../screens/RootStack/AddTodoScreen";
 import MaterialIcons from "@react-native-vector-icons/material-icons";
 import DetailsScreen from "../screens/RootStack/DetailsScreen";
 import TodoScreen from "../screens/HomeBottomTab/TodoScreen";
-import HomeTabs from "./HomeBottomTab";
+import HomeTabs from "./HomeBottomTabs";
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
