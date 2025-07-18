@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { useAppSelector } from '../redux/hook';
+import { useAppSelector } from '../../redux/hook';
 
 const DetailsScreen = () => {
   const taskId = useAppSelector(state => state.todos.selectedTodoId);

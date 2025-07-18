@@ -1,11 +1,10 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AddBtnComponent from '../components/AddBtnComponent';
-import { useNavigation } from '@react-navigation/native';
-import TaskCardComponent from '../components/TaskCardComponent';
-import { useAppDispatch, useAppSelector } from '../redux/hook';
-import { getTodoById } from '../redux/slices/todoSlice';
-import { StackNavigation } from '../../App';
+import AddBtnComponent from '../../components/AddBtnComponent';
+import TaskCardComponent from '../../components/TaskCardComponent';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { getTodoById } from '../../redux/slices/todoSlice';
+import { HomeTabScreenProps } from '../../navigation/types';
 
 export type Task = {
   id:string;
@@ -14,8 +13,7 @@ export type Task = {
   isComplete: boolean;
 };
 
-const Todo = () => {
-  const navigation = useNavigation<StackNavigation>();
+const TodoScreen = ({navigation}:HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
   const dispatch = useAppDispatch();
   
@@ -65,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Todo;
+export default TodoScreen;

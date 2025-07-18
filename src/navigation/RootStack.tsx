@@ -1,16 +1,17 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackParamList } from "./types";
-import HomeTabs from "./HomeBottomTab";
-import AddTodoScreen from "../screens/AddTodoScreen";
+import AddTodoScreen from "../screens/RootStack/AddTodoScreen";
 import MaterialIcons from "@react-native-vector-icons/material-icons";
-import DetailsScreen from "../screens/DetailsScreen";
+import DetailsScreen from "../screens/RootStack/DetailsScreen";
+import TodoScreen from "../screens/HomeBottomTab/TodoScreen";
+import HomeTabs from "./HomeBottomTab";
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 const RootStack = () => {
     return(
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeTabs} 
+        <Stack.Navigator initialRouteName="Todo">
+          <Stack.Screen name="Todo" component={HomeTabs} 
           options={{
             animation: 'simple_push',
             headerShown: false

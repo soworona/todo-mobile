@@ -1,27 +1,20 @@
 import { Text, View } from 'react-native';
-import InputComponent from '../components/InputComponent';
+import InputComponent from '../../components/InputComponent';
 import { useState } from 'react';
-import BtnComponent from '../components/BtnComponent';
+import BtnComponent from '../../components/BtnComponent';
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Task } from './HomeScreen';
-import { useAppDispatch } from '../redux/hook';
-import { addTodo } from '../redux/slices/todoSlice';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Task } from '../HomeBottomTab/TodoScreen';
+import { useAppDispatch } from '../../redux/hook';
+import { addTodo } from '../../redux/slices/todoSlice';
+import { BottomTabParamList, RootStackScreenProps, StackParamList } from '../../navigation/types';
 
-type RootStackParamList = {
-  Home: { newTodo?: Task };
-  AddTodo: undefined;
-};
 
-type AddTodoScreenNavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'AddTodo'
->;
 
-const AddTodoScreen = () => {
+const AddTodoScreen = ({navigation}:RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
   const handleSaveTodo= () =>{

@@ -1,6 +1,6 @@
 import { Text } from '@react-navigation/elements';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Task } from '../screens/HomeScreen';
+import { Task } from '../screens/HomeBottomTab/TodoScreen';
 import CheckBoxComponent from './CheckboxComponent';
 import { useAppDispatch } from '../redux/hook';
 import { deleteTodo, toggleTodoStatus } from '../redux/slices/todoSlice';

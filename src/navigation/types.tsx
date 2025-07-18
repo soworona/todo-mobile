@@ -1,15 +1,15 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type StackParamList = {
-  Home: undefined;
+  Todo: NavigatorScreenParams<BottomTabParamList>;
   AddTodo: undefined;
   Details: undefined;
 };
 
 export type BottomTabParamList = {
-  HomeTab: undefined;
+  Home: undefined;
   Menu: undefined;
   Profile: undefined;
 };
@@ -17,15 +17,9 @@ export type BottomTabParamList = {
 export type RootStackScreenProps<T extends keyof StackParamList> =
   NativeStackScreenProps<StackParamList, T>;
 
-export type HomeTabParamList = {
-  Home: undefined;
-  Menu: undefined;
-  Profile: undefined;
-};
-
-export type HomeTabScreenProps<T extends keyof HomeTabParamList> =
+export type HomeTabScreenProps<T extends keyof BottomTabParamList> =
   CompositeScreenProps<
-    BottomTabScreenProps<HomeTabParamList, T>,
+    BottomTabScreenProps<BottomTabParamList, T>,
     RootStackScreenProps<keyof StackParamList>
   >;
 

@@ -1,5 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../../screens/HomeScreen";
+import { Task } from "../../screens/HomeBottomTab/TodoScreen";
 import { act } from "react";
 
 type TodoState = {

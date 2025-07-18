@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "../screens/HomeScreen";
 import MaterialIcons from "@react-native-vector-icons/material-icons";
-import MenuScreen from "../screens/MenuScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import MenuScreen from "../screens/HomeBottomTab/MenuScreen";
+import ProfileScreen from "../screens/HomeBottomTab/ProfileScreen";
+import { BottomTabParamList } from "./types";
+import TodoScreen from "../screens/HomeBottomTab/TodoScreen";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const HomeTabs= () => {
   return (
@@ -18,7 +19,7 @@ const HomeTabs= () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={TodoScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="home" size={24} color={color} />
