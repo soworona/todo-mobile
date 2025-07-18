@@ -3,10 +3,7 @@ import { StackParamList } from './types';
 import AddTodoScreen from '../screens/RootStack/AddTodoScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import DetailsScreen from '../screens/RootStack/DetailsScreen';
-import TodoScreen from '../screens/HomeBottomTab/TodoScreen';
 import HomeTabs from './HomeBottomTabs';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
