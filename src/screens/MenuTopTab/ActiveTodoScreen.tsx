@@ -9,6 +9,7 @@ const ActiveTodoScreen = ({ navigation }: MenuTopTabScreenProps<'Active'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
   const activeList = todoList.filter(t => !t.isComplete)
   const dispatch = useAppDispatch();
+  
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container}>

@@ -33,7 +33,7 @@ export type HomeTabScreenProps<T extends keyof BottomTabParamList> =
 export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
   CompositeScreenProps<
   MaterialTopTabScreenProps<MaterialTopParamList, T>,
-  RootStackScreenProps<keyof StackParamList>
+  HomeTabScreenProps<'Menu'>
   >;
 
   declare global {

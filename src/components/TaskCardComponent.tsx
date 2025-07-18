@@ -24,10 +24,12 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
   };
 
   const handleDeleteBtnPress = () => {
-    dispatch(deleteTodo({
-      id: props.task.id
-    }))
-  }
+    dispatch(
+      deleteTodo({
+        id: props.task.id,
+      }),
+    );
+  };
 
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
@@ -35,9 +37,18 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
         isChecked={props.task.isComplete}
         onPress={handleCheckBoxPress}
       />
-      <Text style={styles.smallTxt}>{props.task.title}</Text>
+      <Text
+        style={[
+          styles.smallTxt,
+          {
+            textDecorationLine: props.task.isComplete ? 'line-through' : 'none'
+          },
+        ]}
+      >
+        {props.task.title}
+      </Text>
       <View style={styles.icon}>
-      <IconBtnComponent icon='home' onPress={handleDeleteBtnPress} />
+        <IconBtnComponent icon="home" onPress={handleDeleteBtnPress} />
       </View>
     </TouchableOpacity>
   );
@@ -54,17 +65,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#B2BAB2',
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   smallTxt: {
     fontSize: 16,
     fontWeight: 400,
-    color:'#2A2C2A'
+    color: '#2A2C2A',
   },
-  icon:{
-    position:'absolute',
-    right:0
-  }
+  icon: {
+    position: 'absolute',
+    right: 10,
+  },
 });
 
 export default TaskCardComponent;

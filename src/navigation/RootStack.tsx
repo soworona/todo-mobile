@@ -1,38 +1,58 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StackParamList } from "./types";
-import AddTodoScreen from "../screens/RootStack/AddTodoScreen";
-import MaterialIcons from "@react-native-vector-icons/material-icons";
-import DetailsScreen from "../screens/RootStack/DetailsScreen";
-import TodoScreen from "../screens/HomeBottomTab/TodoScreen";
-import HomeTabs from "./HomeBottomTabs";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StackParamList } from './types';
+import AddTodoScreen from '../screens/RootStack/AddTodoScreen';
+import MaterialIcons from '@react-native-vector-icons/material-icons';
+import DetailsScreen from '../screens/RootStack/DetailsScreen';
+import TodoScreen from '../screens/HomeBottomTab/TodoScreen';
+import HomeTabs from './HomeBottomTabs';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 const RootStack = () => {
-    return(
-        <Stack.Navigator initialRouteName="Todo">
-          <Stack.Screen name="Todo" component={HomeTabs} 
-          options={{
-            animation: 'simple_push',
-            headerShown: false
-          }}/>
-          <Stack.Screen name="AddTodo" component={AddTodoScreen} 
-          options={{
-            animation: 'slide_from_bottom',
-            headerLeft: props => <MaterialIcons name='arrow-back-ios-new' size={25} style={{ marginRight: 5}}/>
-            }}
-            
-            />
-          <Stack.Screen name="Details" component={DetailsScreen}
-          options={{
-            animation: 'slide_from_bottom',
-            headerLeft: props => <MaterialIcons name='arrow-back-ios-new' size={25} style={{ marginRight: 5}}/>
-          }}
-          
-           />
-        </Stack.Navigator>
-    )
-}
-
+  return (
+    <Stack.Navigator initialRouteName="Todo">
+      <Stack.Screen
+        name="Todo"
+        component={HomeTabs}
+        options={{
+          animation: 'simple_push',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddTodo"
+        component={AddTodoScreen}
+        options={({navigation}) => ({
+          animation: 'slide_from_bottom',
+          headerLeft: () => (
+            <MaterialIcons
+              name="arrow-back-ios-new"
+              size={18}
+              style={{ marginRight: 5 }}
+              onPress={navigation.goBack}
+              />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Details"
+        component={DetailsScreen}
+        options={({ navigation }) => ({
+          animation: 'slide_from_bottom',
+          headerLeft: () => (
+            <MaterialIcons
+              name="arrow-back-ios-new"
+              size={18}
+              style={{ paddingRight:10, paddingTop:6}}
+              onPress={navigation.goBack}
+              />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
+};
 
 export default RootStack;

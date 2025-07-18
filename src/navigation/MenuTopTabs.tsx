@@ -8,7 +8,11 @@ const Tab = createMaterialTopTabNavigator<MaterialTopParamList>();
 
 const MenuTopTabs = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        
+      }}
+    >
       <Tab.Screen name="All" component={AllTodoScreen} />
       <Tab.Screen name="Active" component={ActiveTodoScreen} />
       <Tab.Screen name="Completed" component={CompletedTodoScreen} />
