@@ -10,39 +10,15 @@ import ProfileScreen from './src/screens/ProfileScreen';
 import MenuScreen from './src/screens/MenuScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
-
-export type StackParamList = {
-  Home: undefined;
-  AddTodo: undefined;
-  Details: undefined;
-};
-
-export type BottomTabParamList ={
-  HomeTab: undefined,
-  Menu: undefined,
-  Profile: undefined
-}
+import { StackParamList } from './src/navigation/types';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator();
-
-const config = {
-  animation: 'spring',
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
 
 function HomeTabs() {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarShowLabel: true,
         tabBarStyle: { backgroundColor: '#638265ff', height: 70 },
         tabBarInactiveTintColor: '#dae2da',
@@ -50,7 +26,7 @@ function HomeTabs() {
       }}
     >
       <Tab.Screen
-        name="HomeTab"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color }) => (
@@ -83,17 +59,27 @@ function HomeTabs() {
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer >
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={HomeTabs} />
+          <Stack.Screen name="Home" component={HomeTabs} 
+          options={{
+            animation: 'simple_push',
+            headerShown: false
+          }}/>
           <Stack.Screen name="AddTodo" component={AddTodoScreen} 
           options={{
-            transitionSpec:{
-              open: config,
-              close: config
-            }
-          }}/>
-          <Stack.Screen name="Details" component={DetailsScreen} />
+            animation: 'slide_from_bottom',
+            headerLeft: props => <MaterialIcons name='arrow-back-ios-new' size={25} style={{ marginRight: 5}}/>
+            }}
+            
+            />
+          <Stack.Screen name="Details" component={DetailsScreen}
+          options={{
+            animation: 'slide_from_bottom',
+            headerLeft: props => <MaterialIcons name='arrow-back-ios-new' size={25} style={{ marginRight: 5}}/>
+          }}
+          
+           />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
