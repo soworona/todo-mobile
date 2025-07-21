@@ -25,9 +25,12 @@ const RootStack = () => {
         component={AddTodoScreen}
         options={({navigation}) => ({
           animation: 'slide_from_bottom',
+          headerStyle:{backgroundColor:'#96a196ff'},
+          headerTintColor:'#e8e9ecff',
           headerLeft: () => (
             <MaterialIcons
               name="clear"
+              color={'#e8e9ecff'}
               size={20}
               style={{ paddingRight:15, paddingTop:6}}
               onPress={navigation.goBack}
@@ -40,9 +43,12 @@ const RootStack = () => {
         component={DetailsScreen}
         options={({ navigation }) => ({
           animation: 'slide_from_bottom',
+          headerStyle:{backgroundColor:'#96a196ff', },
+          headerTintColor:'#e8e9ecff',
           headerLeft: () => (
             <MaterialIcons
               name="clear"
+              color={'#e8e9ecff'}
               size={20}
               style={{ paddingRight:15, paddingTop:6}}
               onPress={navigation.goBack}

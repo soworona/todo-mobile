@@ -33,7 +33,7 @@ const HomeBottomTabs= () => {
         component={MenuTopTabs}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="menu" size={24} color={color} />
+            <MaterialIcons name="menu-book" size={24} color={color} />
           ),
         }}
       />

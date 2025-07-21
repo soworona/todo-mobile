@@ -70,7 +70,7 @@ const MenuTopTabs = () => {
               );
             },
           }}
-        />
+      />
         <Tab.Screen
           name="Completed"
           component={CompletedTodoScreen}

@@ -46,7 +46,7 @@ export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
 export type HomeDrawerScreenProps<T extends keyof MenuDrawerParamList> =
   CompositeScreenProps<
   DrawerScreenProps<MenuDrawerParamList, T>,
-  HomeTabScreenProps<'Menu'>
+  HomeTabScreenProps<'Home'>
   >;
 
 
