@@ -9,6 +9,14 @@
     "start": "react-native start",
     "test": "jest"
   },
+    "codegenConfig": {
+     "name": "NativeLocalStorageSpec",
+     "type": "modules",
+     "jsSrcsDir": "specs",
+     "android": {
+       "javaPackageName": "com.nativelocalstorage"
+     }
+   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^8.4.2",
     "@react-native-vector-icons/material-icons": "^12.1.0",
