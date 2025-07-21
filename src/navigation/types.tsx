@@ -1,4 +1,5 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { DrawerScreenProps } from '@react-navigation/drawer';
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -21,6 +22,11 @@ export type MaterialTopParamList = {
   Completed: undefined; 
 }
 
+export type HomeDrawerParamList = {
+  Active: undefined;
+  Completed: undefined
+}
+
 export type RootStackScreenProps<T extends keyof StackParamList> =
   NativeStackScreenProps<StackParamList, T>;
 
@@ -35,6 +41,13 @@ export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
   MaterialTopTabScreenProps<MaterialTopParamList, T>,
   HomeTabScreenProps<'Menu'>
   >;
+
+export type HomeDrawerScreenProps<T extends keyof HomeDrawerParamList> =
+  CompositeScreenProps<
+  DrawerScreenProps<HomeDrawerParamList, T>,
+  HomeTabScreenProps<'Menu'>
+  >;
+
 
   declare global {
     namespace RootNavigation {
