@@ -33,6 +33,7 @@ const MenuTopTabs = () => {
         <Tab.Screen
           name="All"
           component={AllTodoScreen}
+          
           options={{
             tabBarIcon: ({ focused }) => {
               return (

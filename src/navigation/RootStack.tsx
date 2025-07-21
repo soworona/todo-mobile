@@ -4,6 +4,7 @@ import AddTodoScreen from '../screens/RootStack/AddTodoScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import DetailsScreen from '../screens/RootStack/DetailsScreen';
 import HomeTabs from './HomeBottomTabs';
+import HomeDrawer from './HomeDrawer';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -13,10 +14,10 @@ const RootStack = () => {
     initialRouteName="Todo">
       <Stack.Screen
         name="Todo"
-        component={HomeTabs}
+        component={HomeDrawer}
         options={{
           animation: 'simple_push',
-          headerShown: false,
+          headerShown: false
         }}
       />
       <Stack.Screen

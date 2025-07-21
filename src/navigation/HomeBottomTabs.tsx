@@ -15,15 +15,10 @@ const HomeBottomTabs= () => {
         tabBarStyle: { backgroundColor: '#638265ff', height: 70 },
         tabBarInactiveTintColor: '#dae2da',
         tabBarActiveTintColor: 'white',
-        headerShown:true,
-        headerStyle: { backgroundColor:'#638265ff',},
-        headerTintColor:'#dae2da',
-        headerTitleStyle: {
-          fontWeight: '300',
-          fontSize: 20,
-        },
+        headerShown:false
       }}
     >
+      
       <Tab.Screen
         name="Home"
         component={TodoScreen}
