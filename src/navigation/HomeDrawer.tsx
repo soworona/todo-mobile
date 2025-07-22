@@ -5,7 +5,7 @@ import { MenuDrawerParamList } from './types';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
@@ -35,6 +35,14 @@ export default function HomeDrawer() {
                   marginBottom: 20,
                 }}
               >
+                <Image source={require("../assets/Zhongli_Icon.webp")} 
+                style={{
+                  width:70,
+                  height:70,
+                  borderRadius:35,
+                  borderWidth:2,
+                  borderColor:'white',
+                  backgroundColor:'light-gray'}}/>
                 <Text
                   style={{
                     fontSize: 20,
@@ -42,7 +50,7 @@ export default function HomeDrawer() {
                     color: 'white'
                   }}
                 >
-                  hello
+                  Profile
                 </Text>
               </ImageBackground>
               <DrawerItemList {...props} />
