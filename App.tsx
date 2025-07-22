@@ -12,8 +12,16 @@ export default function App() {
   success: (props:any) => (
     <BaseToast
       {...props}
-      style={{ borderLeftColor: 'pink', borderRadius:25, borderLeftWidth:29 }}
-      contentContainerStyle={{ paddingHorizontal: 15 }}
+      style={{ 
+        borderLeftColor: 'pink', 
+        borderRadius:50, 
+        borderLeftWidth:5,
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        shadowColor:'pink'
+         }}
+      contentContainerStyle={{ paddingHorizontal: 25 }}
       text1Style={{
         fontSize: 15,
         fontWeight: '400'
@@ -29,7 +37,9 @@ export default function App() {
         <NavigationContainer>
           <RootStack />
         </NavigationContainer>
-      <Toast config={toastConfig}/>
+      <Toast 
+      config={toastConfig}
+      position='bottom'/>
       </PersistGate>
     </Provider>
   );

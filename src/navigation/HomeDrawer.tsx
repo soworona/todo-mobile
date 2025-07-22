@@ -1,10 +1,11 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import ActiveTodoScreen from '../screens/MenuTopTab/ActiveTodoScreen';
 import CompletedTodoScreen from '../screens/MenuTopTab/CompletedTodoScreen';
 import { MenuDrawerParamList } from './types';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
@@ -21,6 +22,32 @@ export default function HomeDrawer() {
         drawerActiveTintColor: 'green',
         drawerType: 'slide',
         drawerStatusBarAnimation: 'fade',
+      }}
+      drawerContent={props => {
+        return (
+          <View style={{ flex: 1 }}>
+              <ImageBackground
+                source={require('../assets/wallhaven-x69pdo.png')}
+                style={{
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingVertical: 100,
+                  marginBottom: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    color: 'white'
+                  }}
+                >
+                  hello
+                </Text>
+              </ImageBackground>
+              <DrawerItemList {...props} />
+          </View>
+        );
       }}
     >
       <Drawer.Screen
