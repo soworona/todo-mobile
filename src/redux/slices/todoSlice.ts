@@ -1,5 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 import { Task } from "../../screens/HomeBottomTab/TodoScreen";
+import Toast from "react-native-toast-message";
 
 type TodoState = {
     todos: Task[],
@@ -20,6 +21,11 @@ const todoSlice = createSlice({
                 title: action.payload.title, 
                 description:action.payload.description, 
                 isComplete:false })
+            Toast.show({
+                type: 'success',
+                text1: 'Todo added!',
+                text2: 'Your todo has been added successfully'
+            });
         },
         getTodoById: (state, action: PayloadAction<string>) =>{
             state.selectedTodoId = action.payload
@@ -32,6 +38,11 @@ const todoSlice = createSlice({
         },
         deleteTodo: (state, action: PayloadAction<{id : string}>) => {
             state.todos = state.todos.filter(t => t.id !== action.payload.id);
+            Toast.show({
+                type: 'success',
+                text1: 'Todo deleted!',
+                text2: 'Your todo has been deleted successfully'
+            });
         }
         
     }

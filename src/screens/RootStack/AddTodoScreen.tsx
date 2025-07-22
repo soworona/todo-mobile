@@ -5,6 +5,8 @@ import BtnComponent from '../../components/BtnComponent';
 import { useAppDispatch } from '../../redux/hook';
 import { addTodo } from '../../redux/slices/todoSlice';
 import {  RootStackScreenProps, StackParamList } from '../../navigation/types';
+import Toast from 'react-native-toast-message';
+import { addNotification } from '../../redux/slices/notificationSlice';
 
 const AddTodoScreen = ({navigation}:RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
@@ -13,7 +15,6 @@ const AddTodoScreen = ({navigation}:RootStackScreenProps<'AddTodo'>) => {
 
   const handleSaveTodo= () =>{
     dispatch(addTodo({ title, description }));
-    
     navigation.goBack();
   }
 

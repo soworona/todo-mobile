@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
@@ -7,38 +7,40 @@ import { getTodoById } from '../../redux/slices/todoSlice';
 import { HomeTabScreenProps } from '../../navigation/types';
 
 export type Task = {
-  id:string;
+  id: string;
   title: string;
   description: string;
   isComplete: boolean;
 };
 
-const TodoScreen = ({navigation}:HomeTabScreenProps<'Home'>) => {
+const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
-  const dispatch = useAppDispatch();  
+  const dispatch = useAppDispatch();
   return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
-      <ScrollView style={styles.container}>
-        {todoList.map(( task ) => (
+
+      <FlatList
+        data={todoList}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
           <TaskCardComponent
-            key={task.id}
-            task={task}
+            task={item}
             onPress={() => {
-              dispatch(getTodoById(task.id));
+              dispatch(getTodoById(item.id));
               navigation.navigate('Details');
             }}
           />
-        ))}
-      </ScrollView>
+        )}
+        contentContainerStyle={styles.container}
+      />
 
       {/* Main container ends */}
-        <AddBtnComponent
-          onPress={() => {
-            navigation.navigate('AddTodo');
-          }}
-        />
-      
+      <AddBtnComponent
+        onPress={() => {
+          navigation.navigate('AddTodo');
+        }}
+      />
     </SafeAreaView>
   );
 };
@@ -53,7 +55,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     width: '100%',
     paddingHorizontal: 20,
-    overflow: 'scroll',
   },
   baseTxt: {
     fontSize: 24,
