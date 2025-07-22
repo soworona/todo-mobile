@@ -43,8 +43,7 @@ const todoSlice = createSlice({
                 text1: 'Todo deleted!',
                 text2: 'Your todo has been deleted successfully'
             });
-        }
-        
+        }        
     }
 })
 

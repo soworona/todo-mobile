@@ -1,11 +1,21 @@
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import ActiveTodoScreen from '../screens/MenuTopTab/ActiveTodoScreen';
 import CompletedTodoScreen from '../screens/MenuTopTab/CompletedTodoScreen';
 import { MenuDrawerParamList } from './types';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { Image, ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
@@ -19,6 +29,19 @@ export default function HomeDrawer() {
           fontWeight: '300',
           fontSize: 20,
         },
+        headerRight: () => (
+          <View style={{ marginRight: 20 }}>
+            <Image
+              source={require('../assets/Zhongli_Icon.webp')}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                backgroundColor: '#f8f6efff',
+              }}
+            />
+          </View>
+        ),
         drawerActiveTintColor: 'green',
         drawerType: 'slide',
         drawerStatusBarAnimation: 'fade',
@@ -26,34 +49,39 @@ export default function HomeDrawer() {
       drawerContent={props => {
         return (
           <View style={{ flex: 1 }}>
-              <ImageBackground
-                source={require('../assets/wallhaven-x69pdo.png')}
-                style={{
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingVertical: 100,
-                  marginBottom: 20,
-                }}
-              >
-                <Image source={require("../assets/Zhongli_Icon.webp")} 
-                style={{
-                  width:70,
-                  height:70,
-                  borderRadius:35,
-                  borderWidth:2,
-                  borderColor:'white',
-                  backgroundColor:'light-gray'}}/>
+            <ImageBackground
+              source={require('../assets/wallhaven-x69pdo.png')}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 230,
+                marginBottom: 20,
+              }}
+            >
+              <View style={{ gap: 3 }}>
+                <Image
+                  source={require('../assets/Zhongli_Icon.webp')}
+                  style={{
+                    width: 70,
+                    height: 70,
+                    borderRadius: 35,
+                    borderWidth: 1,
+                    borderColor: 'white',
+                    backgroundColor: '#f8f6efff',
+                  }}
+                />
                 <Text
                   style={{
                     fontSize: 20,
                     fontWeight: 'bold',
-                    color: 'white'
+                    color: 'white',
                   }}
                 >
                   Profile
                 </Text>
-              </ImageBackground>
-              <DrawerItemList {...props} />
+              </View>
+            </ImageBackground>
+            <DrawerItemList {...props} />
           </View>
         );
       }}
