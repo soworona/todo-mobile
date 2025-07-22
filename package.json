@@ -9,15 +9,8 @@
     "start": "react-native start",
     "test": "jest"
   },
-    "codegenConfig": {
-     "name": "NativeLocalStorageSpec",
-     "type": "modules",
-     "jsSrcsDir": "specs",
-     "android": {
-       "javaPackageName": "com.nativelocalstorage"
-     }
-   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/datetimepicker": "^8.4.2",
     "@react-native-vector-icons/material-icons": "^12.1.0",
     "@react-native/new-app-screen": "0.80.1",
@@ -35,7 +28,8 @@
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.11.1",
     "react-native-vector-icons": "^10.2.0",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

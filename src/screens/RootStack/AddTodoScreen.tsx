@@ -1,24 +1,19 @@
-import { Text, View } from 'react-native';
+import {  View } from 'react-native';
 import InputComponent from '../../components/InputComponent';
 import { useState } from 'react';
 import BtnComponent from '../../components/BtnComponent';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Task } from '../HomeBottomTab/TodoScreen';
 import { useAppDispatch } from '../../redux/hook';
 import { addTodo } from '../../redux/slices/todoSlice';
-import { BottomTabParamList, RootStackScreenProps, StackParamList } from '../../navigation/types';
-
-
+import {  RootStackScreenProps, StackParamList } from '../../navigation/types';
 
 const AddTodoScreen = ({navigation}:RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  // const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
   const handleSaveTodo= () =>{
     dispatch(addTodo({ title, description }));
+    
     navigation.goBack();
   }
 

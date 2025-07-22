@@ -15,8 +15,7 @@ export type Task = {
 
 const TodoScreen = ({navigation}:HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
-  const dispatch = useAppDispatch();
-  
+  const dispatch = useAppDispatch();  
   return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
