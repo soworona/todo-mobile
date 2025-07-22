@@ -1,7 +1,6 @@
 import { combineReducers, configureStore, createStore } from '@reduxjs/toolkit'
 import todoReducer from './slices/todoSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import reducer from './slices/todoSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 
 const persistConfig = {

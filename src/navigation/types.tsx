@@ -23,7 +23,7 @@ export type MaterialTopParamList = {
 }
 
 export type MenuDrawerParamList = {
-  "Todo App": undefined;
+  BottomTab: undefined;
   Completed: undefined;
   Active: undefined;
 }
@@ -33,8 +33,7 @@ export type RootStackScreenProps<T extends keyof StackParamList> =
 
 export type HomeTabScreenProps<T extends keyof BottomTabParamList> =
   CompositeScreenProps<
-    BottomTabScreenProps<BottomTabParamList, T>,
-    RootStackScreenProps<keyof StackParamList>
+    BottomTabScreenProps<BottomTabParamList, T>, any
   >;
 
 export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
@@ -46,7 +45,7 @@ export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
 export type HomeDrawerScreenProps<T extends keyof MenuDrawerParamList> =
   CompositeScreenProps<
   DrawerScreenProps<MenuDrawerParamList, T>,
-  HomeTabScreenProps<'Home'>
+    RootStackScreenProps<keyof StackParamList>
   >;
 
 

@@ -2,7 +2,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import ActiveTodoScreen from '../screens/MenuTopTab/ActiveTodoScreen';
 import CompletedTodoScreen from '../screens/MenuTopTab/CompletedTodoScreen';
 import { MenuDrawerParamList } from './types';
-import { getHeaderTitle } from '@react-navigation/elements';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
@@ -25,7 +24,7 @@ export default function HomeDrawer() {
       }}
     >
       <Drawer.Screen
-        name="Todo App"
+        name="BottomTab"
         component={HomeBottomTabs}
         options={({ route }) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
