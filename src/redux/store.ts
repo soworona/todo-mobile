@@ -1,5 +1,7 @@
 import { combineReducers, configureStore, createStore } from '@reduxjs/toolkit'
 import todoReducer from './slices/todoSlice';
+import notificationReducer from './slices/notificationSlice';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 
@@ -9,7 +11,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-        todos: todoReducer
+  todos: todoReducer,
+  notifications: notificationReducer
         
 })
 
