@@ -5,6 +5,8 @@ import TaskCardComponent from '../../components/TaskCardComponent';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { getTodoById } from '../../redux/slices/todoSlice';
 import { HomeTabScreenProps } from '../../navigation/types';
+import { useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 
 export type Task = {
   id: string;
@@ -16,6 +18,17 @@ export type Task = {
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(todoList.length === 0){
+      Toast.show({
+        type:'info',
+        text1:'No todos',
+        text2:'Press the + button to add todos.'
+      })
+    }
+  }, [todoList]);
+  
   return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}

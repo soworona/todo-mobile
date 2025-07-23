@@ -14,7 +14,6 @@ export default function App() {
       {...props}
       style={{ 
         borderLeftColor: 'pink', 
-        borderRadius:50, 
         borderLeftWidth:5,
         shadowOpacity: 0.25,
         shadowRadius: 4,
@@ -22,10 +21,6 @@ export default function App() {
         shadowColor:'pink'
          }}
       contentContainerStyle={{ paddingHorizontal: 25 }}
-      text1Style={{
-        fontSize: 15,
-        fontWeight: '400'
-      }}
     />
   )
 }

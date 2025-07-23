@@ -8,6 +8,8 @@ export type StackParamList = {
   Todo: NavigatorScreenParams<BottomTabParamList>;
   AddTodo: undefined;
   Details: undefined;
+  Signup: undefined;
+  Login: undefined;
 };
 
 export type BottomTabParamList = {
@@ -33,7 +35,8 @@ export type RootStackScreenProps<T extends keyof StackParamList> =
 
 export type HomeTabScreenProps<T extends keyof BottomTabParamList> =
   CompositeScreenProps<
-    BottomTabScreenProps<BottomTabParamList, T>, any
+    BottomTabScreenProps<BottomTabParamList, T>, 
+    RootStackScreenProps<keyof StackParamList>
   >;
 
 export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
