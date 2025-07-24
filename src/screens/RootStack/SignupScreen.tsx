@@ -21,10 +21,9 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<Error>({});
   const [isFormValid, setIsFormValid] = useState(false);
-
-  useEffect(() => {
-    handleValidation();
-  }, [email, password, confirmPassword]);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
   const handleValidation = () => {
     let errors: Error = {};
@@ -35,12 +34,11 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
 
     if (!password) {
       errors.password = 'Field cannot be empty';
-
     }
 
-    if (!confirmPassword){
-        errors.confirmPassword = 'Field cannot be empty';
-    }else if (password !== confirmPassword) {
+    if (!confirmPassword) {
+      errors.confirmPassword = 'Field cannot be empty';
+    } else if (password !== confirmPassword) {
       errors.confirmPassword = 'Passwords do not match';
     }
 
@@ -83,27 +81,43 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         label="Email"
         value={email}
         onChangeText={setEmail}
+        onBlur={() => {
+          setEmailTouched(true);
+          handleValidation();
+        }}
       />
 
-      {errors.email && <Text> {errors.email}</Text>}
+      {emailTouched && errors.email ? <Text style={styles.error}> {errors.email}</Text> : null}
 
       <InputComponent
         label="Password"
         value={password}
         onChangeText={setPassword}
+        onBlur={() => {
+          setPasswordTouched(true);
+          handleValidation();
+        }}
+        secureTextEntry
       />
 
-      {errors.password && <Text> {errors.password}</Text>}
+      {passwordTouched && errors.password? <Text style={styles.error}> {errors.password}</Text> : null}
 
       <InputComponent
         label="Confirm password"
         value={confirmPassword}
         onChangeText={setConfirmPassword}
+        onBlur={() => {
+          setConfirmPasswordTouched(true);
+          handleValidation();
+        }}
+        secureTextEntry
       />
 
-      {errors.confirmPassword && <Text> {errors.confirmPassword}</Text>}
+      {confirmPasswordTouched && errors.confirmPassword? <Text style={styles.error}> {errors.confirmPassword}</Text> : null}
 
-      <BtnComponent label="Save" onPress={handleRegisterUser} />
+      <BtnComponent label="Sign In" onPress={handleRegisterUser} />
+      <BtnComponent label="Cancel" onPress={() => {navigation.goBack()}} />
+
     </View>
   );
 };
@@ -112,7 +126,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    gap:6
   },
+  error:{
+    color:'#f38273ff',
+    fontSize:12,
+    padding:0,
+    fontStyle:'italic'
+  }
 });
 
 export default SignupScreen;

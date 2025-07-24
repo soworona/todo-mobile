@@ -40,7 +40,7 @@ const AddTodoScreen = ({navigation}:RootStackScreenProps<'AddTodo'>) => {
 const styles = {
   container: {
     padding: 20,
-    gap: 5,
+    gap: 7,
   },
 };
 export default AddTodoScreen;

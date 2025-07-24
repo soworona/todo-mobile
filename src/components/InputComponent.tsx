@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     color: 'black',
-    marginBottom:5,
     borderWidth:2,
   },
   baseText: {
