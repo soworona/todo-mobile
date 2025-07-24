@@ -5,9 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootStack from './src/navigation/RootStack';
 import { PersistGate } from 'redux-persist/integration/react';
 import Toast, { BaseToast } from 'react-native-toast-message';
-import { useEffect, useState } from 'react';
-import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
-import { Text, View } from 'react-native';
 
 export default function App() {
   const toastConfig = {
@@ -26,31 +23,6 @@ export default function App() {
       />
     ),
   };
-
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-
-  function handleAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-
-  useEffect(() => {
-    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
-    return subscriber; 
-  }, []);
-
-  if (initializing) return null;
-
-  if (!user) {
-    return (
-      <View>
-        <Text>Login</Text>
-      </View>
-    );
-  }
-
 
   return (
     <Provider store={store}>

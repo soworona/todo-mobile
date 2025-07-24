@@ -13,12 +13,10 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
- r       classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
-        classpath 'com.google.gms:google-services:4.4.3'
+        classpath("com.google.gms:google-services:4.4.3")
     }
 }
 
 apply plugin: "com.facebook.react.rootproject"
-
-apply plugin: 'com.google.gms.google-services' 
