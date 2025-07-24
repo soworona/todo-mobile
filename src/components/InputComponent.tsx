@@ -6,6 +6,7 @@ type InputTextProps = {
   value: string;
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean
+  onBlur?: () => void
 };
 const InputComponent = (props: InputTextProps) => {
 
@@ -19,7 +20,8 @@ const InputComponent = (props: InputTextProps) => {
       style={[styles.input, {color: colors.text, backgroundColor: colors.card, borderColor:colors.border}]} 
       value={props.value}
       onChangeText={props.onChangeText} 
-      secureTextEntry={props.secureTextEntry}/>
+      secureTextEntry={props.secureTextEntry}
+      onBlur={props.onBlur}/>
     </View>
   );
 };
