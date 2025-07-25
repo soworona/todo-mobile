@@ -1,24 +1,22 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type BtnComponentProps = {
   label: string;
   onPress: () => void;
 };
 
-const BtnComponent = (props: BtnComponentProps) => {
-  return props.label === 'Save' ? (
+const BtnComponent = ({ label, onPress }: BtnComponentProps) => {
+  const isSecondary = !['Cancel', 'Sign up here'].includes(label);
+
+  return (
     <TouchableOpacity
-      style={[styles.backgroundStyle, { backgroundColor: '#7fa381ff' }]}
-      onPress={props.onPress}
+      style={[
+        styles.backgroundStyle,
+        { backgroundColor: isSecondary ? '#7fa381ff' : '#bfc6c0ff' },
+      ]}
+      onPress={onPress}
     >
-      <Text style={styles.txt}>{props.label}</Text>
-    </TouchableOpacity>
-  ) : (
-    <TouchableOpacity
-      style={[styles.backgroundStyle, { backgroundColor: '#bfc6c0ff' }]}
-      onPress={props.onPress}
-    >
-      <Text style={styles.txt}>{props.label}</Text>
+      <Text style={styles.txt}>{label}</Text>
     </TouchableOpacity>
   );
 };
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
   txt: {
     color: 'white',
     textAlign: 'center',
-    fontWeight: 600,
+    fontWeight: '600', // string is safer in RN
     fontSize: 16,
   },
 });

@@ -34,20 +34,23 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
 
     if (!password) {
       errors.password = 'Field cannot be empty';
+
     }
 
-    if (!confirmPassword) {
+    if(!confirmPassword) {
       errors.confirmPassword = 'Field cannot be empty';
+
     } else if (password !== confirmPassword) {
       errors.confirmPassword = 'Passwords do not match';
+
     }
 
     setErrors(errors);
-    setIsFormValid(Object.keys(errors).length === 0);
+    return Object.keys(errors).length === 0;
   };
 
   const handleRegisterUser = () => {
-    if (isFormValid) {
+    if (handleValidation()) {
       createUserWithEmailAndPassword(getAuth(), email, password)
         .then(() => {
           Toast.show({
@@ -75,19 +78,16 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         });
     }
   };
+
   return (
     <View style={styles.container}>
       <InputComponent
         label="Email"
         value={email}
         onChangeText={setEmail}
-        onBlur={() => {
-          setEmailTouched(true);
-          handleValidation();
-        }}
+        errorField={handleValidation()}
       />
 
-      {emailTouched && errors.email ? <Text style={styles.error}> {errors.email}</Text> : null}
 
       <InputComponent
         label="Password"
@@ -95,12 +95,14 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         onChangeText={setPassword}
         onBlur={() => {
           setPasswordTouched(true);
-          handleValidation();
         }}
         secureTextEntry
+        errorField={isFormValid}
       />
 
-      {passwordTouched && errors.password? <Text style={styles.error}> {errors.password}</Text> : null}
+      {isFormValid && errors.password ? (
+        <Text style={styles.error}> {errors.password}</Text>
+      ) : null}
 
       <InputComponent
         label="Confirm password"
@@ -108,16 +110,22 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         onChangeText={setConfirmPassword}
         onBlur={() => {
           setConfirmPasswordTouched(true);
-          handleValidation();
         }}
         secureTextEntry
+        errorField={isFormValid}
       />
 
-      {confirmPasswordTouched && errors.confirmPassword? <Text style={styles.error}> {errors.confirmPassword}</Text> : null}
+      {isFormValid && errors.confirmPassword ? (
+        <Text style={styles.error}> {errors.confirmPassword}</Text>
+      ) : null}
 
       <BtnComponent label="Sign In" onPress={handleRegisterUser} />
-      <BtnComponent label="Cancel" onPress={() => {navigation.goBack()}} />
-
+      <BtnComponent
+        label="Cancel"
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
     </View>
   );
 };
@@ -126,14 +134,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    gap:6
+    gap: 6,
   },
-  error:{
-    color:'#f38273ff',
-    fontSize:12,
-    padding:0,
-    fontStyle:'italic'
-  }
+  error: {
+    color: '#f38273ff',
+    fontSize: 12,
+    padding: 0,
+    fontStyle: 'italic',
+  },
 });
 
 export default SignupScreen;

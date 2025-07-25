@@ -7,6 +7,8 @@ type InputTextProps = {
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean
   onBlur?: () => void
+  errorField?: boolean
+  errorMessage: string
 };
 const InputComponent = (props: InputTextProps) => {
 
@@ -17,7 +19,7 @@ const InputComponent = (props: InputTextProps) => {
         <Text style={[styles.baseText, {color: colors.text}]}>{props.label}</Text>
       )}
       <TextInput 
-      style={[styles.input, {color: colors.text, backgroundColor: colors.card, borderColor:colors.border}]} 
+      style={[styles.input, { borderColor: props.errorField? '#f38273ff' : '#dad2d1ff'}]} 
       value={props.value}
       onChangeText={props.onChangeText} 
       secureTextEntry={props.secureTextEntry}
@@ -32,7 +34,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     color: 'black',
-    borderWidth:2,
+    borderWidth:1,
+    backgroundColor:'white'
   },
   baseText: {
     padding: 5,
@@ -42,3 +45,7 @@ const styles = StyleSheet.create({
 });
 
 export default InputComponent;
+
+
+
+
