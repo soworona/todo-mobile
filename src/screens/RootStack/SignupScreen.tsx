@@ -85,7 +85,7 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         label="Email"
         value={email}
         onChangeText={setEmail}
-        errorField={handleValidation()}
+        errorMessage={errors.email}
       />
 
 
@@ -97,7 +97,7 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
           setPasswordTouched(true);
         }}
         secureTextEntry
-        errorField={isFormValid}
+        errorMessage={errors.password}
       />
 
       {isFormValid && errors.password ? (
@@ -112,7 +112,7 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
           setConfirmPasswordTouched(true);
         }}
         secureTextEntry
-        errorField={isFormValid}
+        errorMessage={errors.confirmPassword}
       />
 
       {isFormValid && errors.confirmPassword ? (
@@ -134,14 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    gap: 6,
-  },
-  error: {
-    color: '#f38273ff',
-    fontSize: 12,
-    padding: 0,
-    fontStyle: 'italic',
-  },
+  }
 });
 
 export default SignupScreen;

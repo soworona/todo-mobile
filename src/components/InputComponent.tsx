@@ -7,8 +7,7 @@ type InputTextProps = {
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean
   onBlur?: () => void
-  errorField?: boolean
-  errorMessage: string
+  errorMessage?: string
 };
 const InputComponent = (props: InputTextProps) => {
 
@@ -19,11 +18,12 @@ const InputComponent = (props: InputTextProps) => {
         <Text style={[styles.baseText, {color: colors.text}]}>{props.label}</Text>
       )}
       <TextInput 
-      style={[styles.input, { borderColor: props.errorField? '#f38273ff' : '#dad2d1ff'}]} 
+      style={[styles.input, { borderColor: props.errorMessage? '#f38273ff' : '#dad2d1ff'}]} 
       value={props.value}
       onChangeText={props.onChangeText} 
       secureTextEntry={props.secureTextEntry}
       onBlur={props.onBlur}/>
+      <Text style={styles.error}>{props.errorMessage}</Text>
     </View>
   );
 };
@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 14,
     fontWeight:400
+  },
+    error: {
+    marginLeft: 10,
+    color: '#f38273ff',
+    fontSize: 12,
+    padding: 0,
+    fontStyle: 'italic',
   },
 });
 

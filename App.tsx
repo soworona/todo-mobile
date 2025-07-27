@@ -30,7 +30,7 @@ export default function App() {
         <NavigationContainer>
           <RootStack />
         </NavigationContainer>
-        <Toast config={toastConfig} position="bottom" />
+        <Toast config={toastConfig} />
       </PersistGate>
     </Provider>
   );
