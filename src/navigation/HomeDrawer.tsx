@@ -14,16 +14,19 @@ import {
   Image,
   ImageBackground,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 
 const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
-export default function HomeDrawer({navigation}: RootStackScreenProps<'Login'>) {
-
+export default function HomeDrawer({
+  navigation,
+}: RootStackScreenProps<'Login'>) {
   const handleLogout = () => {
-  signOut(getAuth()).then(() => navigation.navigate('Login'));}
+    signOut(getAuth()).then(() => navigation.navigate('Login'));
+  };
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -52,49 +55,58 @@ export default function HomeDrawer({navigation}: RootStackScreenProps<'Login'>) 
       }}
       drawerContent={props => {
         return (
-          <View style={{ flex: 1 , justifyContent:'space-between'}}>
+          <View style={{ flex: 1, justifyContent: 'space-between' }}>
             <View>
-
-            <ImageBackground
-              source={require('../assets/wallhaven-x69pdo.png')}
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 230,
-                marginBottom: 20,
-              }}
-            >
-              <View style={{ gap: 3 }}>
-                <Image
-                  source={require('../assets/Zhongli_Icon.webp')}
-                  style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: 35,
-                    borderWidth: 1,
-                    borderColor: 'white',
-                    backgroundColor: '#f8f6efff',
-                  }}
+              <ImageBackground
+                source={require('../assets/wallhaven-x69pdo.png')}
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 230,
+                  marginBottom: 20,
+                }}
+              >
+                <View style={{ gap: 3 }}>
+                  <Image
+                    source={require('../assets/Zhongli_Icon.webp')}
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: 35,
+                      borderWidth: 1,
+                      borderColor: 'white',
+                      backgroundColor: '#f8f6efff',
+                    }}
                   />
-                <Text
-                  style={{
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    color: 'white',
-                  }}
-                >
-                  Profile
-                </Text>
-              </View>
-            </ImageBackground>
-            <DrawerItemList {...props} />
-
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 'bold',
+                      color: 'white',
+                    }}
+                  >
+                    Profile
+                  </Text>
+                </View>
+              </ImageBackground>
+              <DrawerItemList {...props} />
             </View>
-            <DrawerItem
-          label="Logout"
-          labelStyle={{ color: 'white', fontWeight: 'bold', backgroundColor:'#638265ff', width: 290, textAlign:'center', height:50, borderRadius:15 }}
-          onPress={handleLogout}
-        />
+              <DrawerItem
+                label="Logout"
+                onPress={handleLogout}
+                style={{
+                  backgroundColor: '#729b74ff',
+                  borderRadius: 15,
+                  marginBottom: 30,
+                  marginHorizontal: 10,
+                  justifyContent: 'center',
+                }}
+                labelStyle={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                }}
+              />
           </View>
         );
       }}
