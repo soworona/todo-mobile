@@ -5,8 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootStack from './src/navigation/RootStack';
 import { PersistGate } from 'redux-persist/integration/react';
 import Toast, { BaseToast } from 'react-native-toast-message';
+import { useEffect, useState } from 'react';
+import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 
 export default function App() {
+  
+  //Toast
   const toastConfig = {
     success: (props: any) => (
       <BaseToast

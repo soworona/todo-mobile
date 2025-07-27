@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import InputComponent from '../../components/InputComponent';
 import BtnComponent from '../../components/BtnComponent';
 import { useState } from 'react';
-import { RootStackScreenProps } from '../../navigation/types';
+import { HomeTabScreenProps, RootStackScreenProps } from '../../navigation/types';
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -14,7 +14,7 @@ type Error = {
   password?: string;
 };
 
-const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
+const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Error>({});
@@ -66,6 +66,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
           });
         });
     }
+
   };
 
   return (

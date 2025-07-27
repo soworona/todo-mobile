@@ -5,8 +5,13 @@ import TaskCardComponent from '../../components/TaskCardComponent';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { getTodoById } from '../../redux/slices/todoSlice';
 import { HomeTabScreenProps } from '../../navigation/types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Toast from 'react-native-toast-message';
+import {
+  FirebaseAuthTypes,
+  getAuth,
+  onAuthStateChanged,
+} from '@react-native-firebase/auth';
 
 export type Task = {
   id: string;
@@ -18,44 +23,66 @@ export type Task = {
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
   const dispatch = useAppDispatch();
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  function handleAuthStateChanged(user: FirebaseAuthTypes.User | null) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
 
   useEffect(() => {
-    if(todoList.length === 0){
-      Toast.show({
-        type:'info',
-        text1:'No todos',
-        text2:'Press the + button to add todos.'
-      })
+    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  useEffect(() => {
+    if (!initializing && !user) {
+      navigation.replace('Login');
     }
-  }, [todoList]);
-  
-  return (
-    <SafeAreaView style={styles.screen}>
-      {/* Main container starts */}
+  }, [user, initializing]);
 
-      <FlatList
-        data={todoList}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <TaskCardComponent
-            task={item}
-            onPress={() => {
-              dispatch(getTodoById(item.id));
-              navigation.navigate('Details');
-            }}
-          />
-        )}
-        contentContainerStyle={styles.container}
-      />
+  // useEffect(() => {
+  //   if (todoList.length === 0) {
+  //     Toast.show({
+  //       type: 'info',
+  //       text1: 'No todos',
+  //       text2: 'Press the + button to add todos.',
+  //     });
+  //   }
+  // }, [todoList]);
 
-      {/* Main container ends */}
-      <AddBtnComponent
-        onPress={() => {
-          navigation.navigate('AddTodo');
-        }}
-      />
-    </SafeAreaView>
-  );
+  if (initializing) return null;
+
+  if (!user) {
+    return (
+      <SafeAreaView style={styles.screen}>
+        {/* Main container starts */}
+
+        <FlatList
+          data={todoList}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TaskCardComponent
+              task={item}
+              onPress={() => {
+                dispatch(getTodoById(item.id));
+                navigation.navigate('Details');
+              }}
+            />
+          )}
+          contentContainerStyle={styles.container}
+        />
+
+        {/* Main container ends */}
+        <AddBtnComponent
+          onPress={() => {
+            navigation.navigate('AddTodo');
+          }}
+        />
+      </SafeAreaView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

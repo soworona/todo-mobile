@@ -1,11 +1,12 @@
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
+  DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
 import ActiveTodoScreen from '../screens/MenuTopTab/ActiveTodoScreen';
 import CompletedTodoScreen from '../screens/MenuTopTab/CompletedTodoScreen';
-import { MenuDrawerParamList } from './types';
+import { MenuDrawerParamList, RootStackScreenProps } from './types';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
@@ -13,13 +14,16 @@ import {
   Image,
   ImageBackground,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
+import { getAuth, signOut } from '@react-native-firebase/auth';
 
 const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
-export default function HomeDrawer() {
+export default function HomeDrawer({navigation}: RootStackScreenProps<'Login'>) {
+
+  const handleLogout = () => {
+  signOut(getAuth()).then(() => navigation.navigate('Login'));}
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -48,7 +52,9 @@ export default function HomeDrawer() {
       }}
       drawerContent={props => {
         return (
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1 , justifyContent:'space-between'}}>
+            <View>
+
             <ImageBackground
               source={require('../assets/wallhaven-x69pdo.png')}
               style={{
@@ -69,7 +75,7 @@ export default function HomeDrawer() {
                     borderColor: 'white',
                     backgroundColor: '#f8f6efff',
                   }}
-                />
+                  />
                 <Text
                   style={{
                     fontSize: 20,
@@ -82,6 +88,13 @@ export default function HomeDrawer() {
               </View>
             </ImageBackground>
             <DrawerItemList {...props} />
+
+            </View>
+            <DrawerItem
+          label="Logout"
+          labelStyle={{ color: 'white', fontWeight: 'bold', backgroundColor:'#638265ff', width: 290, textAlign:'center', height:50, borderRadius:15 }}
+          onPress={handleLogout}
+        />
           </View>
         );
       }}
