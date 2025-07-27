@@ -3,7 +3,10 @@ import InputComponent from '../../components/InputComponent';
 import BtnComponent from '../../components/BtnComponent';
 import { useState } from 'react';
 import { RootStackScreenProps } from '../../navigation/types';
-import { signInWithEmailAndPassword, getAuth } from '@react-native-firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+} from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 
 type Error = {
@@ -42,6 +45,8 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
             text1: 'Welcome back!',
             text2: 'Successfully signed in.',
           });
+
+          navigation.navigate('Todo');
         })
         .catch(error => {
           let message = 'Something went wrong';
