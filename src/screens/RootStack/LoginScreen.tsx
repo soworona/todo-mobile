@@ -19,18 +19,18 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
   const [passwordTouched, setPasswordTouched] = useState(false);
 
   const validateForm = () => {
-    let newErrors: Error = {};
+    let errors: Error = {};
 
     if (!email) {
-      newErrors.email = 'Field cannot be empty';
+      errors.email = 'Field cannot be empty';
     }
 
     if (!password) {
-      newErrors.password = 'Field cannot be empty';
+      errors.password = 'Field cannot be empty';
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleLogin = () => {
@@ -70,7 +70,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
         value={email}
         onChangeText={setEmail}
         onBlur={() => setEmailTouched(true)}
-        errorMessage={emailTouched ? errors.email : undefined}
+        errorMessage={errors.email ? errors.email : undefined}
       />
 
       <InputComponent
@@ -79,7 +79,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
         onChangeText={setPassword}
         onBlur={() => setPasswordTouched(true)}
         secureTextEntry
-        errorMessage={passwordTouched ? errors.password : undefined}
+        errorMessage={errors.password ? errors.password : undefined}
       />
 
       <BtnComponent label="Login" onPress={handleLogin} />

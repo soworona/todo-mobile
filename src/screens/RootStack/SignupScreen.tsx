@@ -21,7 +21,6 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState<Error>({});
   const [isFormValid, setIsFormValid] = useState(false);
-  const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
