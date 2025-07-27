@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import InputComponent from '../../components/InputComponent';
 import BtnComponent from '../../components/BtnComponent';
 import { useState } from 'react';
@@ -8,6 +8,7 @@ import {
   getAuth,
 } from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
+import Divider from '../../components/Divider';
 
 type Error = {
   email?: string;
@@ -71,13 +72,14 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
 
   return (
     <View style={styles.container}>
+      <View>
       <InputComponent
         label="Email"
         value={email}
         onChangeText={setEmail}
         onBlur={() => setEmailTouched(true)}
         errorMessage={errors.email ? errors.email : undefined}
-      />
+        />
 
       <InputComponent
         label="Password"
@@ -86,7 +88,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
         onBlur={() => setPasswordTouched(true)}
         secureTextEntry
         errorMessage={errors.password ? errors.password : undefined}
-      />
+        />
 
       <BtnComponent label="Login" onPress={handleLogin} />
 
@@ -95,7 +97,14 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
         onPress={() => {
           navigation.navigate('Signup');
         }}
-      />
+        />
+        </View>
+      <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center', gap:10}}>
+        <Divider/> <Text>or</Text> <Divider />
+      </View>
+      <View>
+        
+      </View>
     </View>
   );
 };
@@ -104,6 +113,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    gap:15
   },
 });
 
