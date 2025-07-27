@@ -100,10 +100,6 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         errorMessage={errors.password}
       />
 
-      {isFormValid && errors.password ? (
-        <Text style={styles.error}> {errors.password}</Text>
-      ) : null}
-
       <InputComponent
         label="Confirm password"
         value={confirmPassword}
@@ -114,10 +110,6 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         secureTextEntry
         errorMessage={errors.confirmPassword}
       />
-
-      {isFormValid && errors.confirmPassword ? (
-        <Text style={styles.error}> {errors.confirmPassword}</Text>
-      ) : null}
 
       <BtnComponent label="Sign In" onPress={handleRegisterUser} />
       <BtnComponent
