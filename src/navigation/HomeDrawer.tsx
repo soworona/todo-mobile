@@ -18,15 +18,19 @@ import {
   View,
 } from 'react-native';
 import { getAuth, signOut } from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
 export default function HomeDrawer({
   navigation,
 }: RootStackScreenProps<'Login'>) {
-  const handleLogout = () => {
+  const handleLogout = async () => {
+
     signOut(getAuth()).then(() => navigation.navigate('Login'));
+    await GoogleSignin.revokeAccess();
   };
+
   return (
     <Drawer.Navigator
       screenOptions={{

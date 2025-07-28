@@ -94,7 +94,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
     const userInfo = await GoogleSignin.signIn();
     console.log('userinfo', userInfo);
 
-    let idToken = userInfo.data?.idToken;
+    let idToken = userInfo.data?.idToken; 
     if (!idToken) {
       throw new Error('No ID token found');
     }
