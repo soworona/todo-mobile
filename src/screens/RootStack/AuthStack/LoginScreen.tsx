@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import InputComponent from '../../components/InputComponent';
-import BtnComponent from '../../components/BtnComponent';
+import InputComponent from '../../../components/InputComponent';
+import BtnComponent from '../../../components/BtnComponent';
 import { useEffect, useState } from 'react';
 import {
   HomeTabScreenProps,
   RootStackScreenProps,
-} from '../../navigation/types';
+} from '../../../navigation/types';
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -13,8 +13,8 @@ import {
   signInWithCredential,
 } from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
-import Divider from '../../components/Divider';
-import LoginOptionBtn from '../../components/LoginOptionBtn ';
+import Divider from '../../../components/Divider';
+import LoginOptionBtn from '../../../components/LoginOptionBtn ';
 import {
   GoogleSignin,
   statusCodes,
@@ -93,7 +93,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     const userInfo = await GoogleSignin.signIn();
     console.log('userinfo', userInfo);
-
+    navigation.navigate('Todo');
     let idToken = userInfo.data?.idToken; 
     if (!idToken) {
       throw new Error('No ID token found');
@@ -130,7 +130,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
         <BtnComponent
           label="Sign up here"
           onPress={() => {
-            navigation.navigate('Signup');
+          navigation.navigate('Signup')
           }}
         />
       </View>
@@ -142,7 +142,8 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
           gap: 10,
         }}
       >
-        <Divider /> <Text>or</Text> <Divider />
+        <Divider /> 
+         <Divider />
       </View>
       <View>
         <LoginOptionBtn

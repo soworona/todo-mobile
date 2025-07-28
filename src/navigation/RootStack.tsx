@@ -4,44 +4,67 @@ import AddTodoScreen from '../screens/RootStack/AddTodoScreen';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 import DetailsScreen from '../screens/RootStack/DetailsScreen';
 import HomeDrawer from './HomeDrawer';
-import SignupScreen from '../screens/RootStack/SignupScreen';
-import LoginScreen from '../screens/RootStack/LoginScreen';
+import SignupScreen from '../screens/RootStack/AuthStack/SignupScreen';
+import LoginScreen from '../screens/RootStack/AuthStack/LoginScreen';
+import { useEffect, useState } from 'react';
+import {
+  FirebaseAuthTypes,
+  getAuth,
+  onAuthStateChanged,
+} from '@react-native-firebase/auth';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 const RootStack = () => {
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const [initializing, setInitializing] = useState(true);
+
+  function handleAuthStateChanged(user: FirebaseAuthTypes.User | null) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
+    return subscriber;
+  }, []);
+
+  if (initializing) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#78a381ff" />
+      </View>
+    );
+  }
+
   return (
-    <Stack.Navigator 
-    initialRouteName="Login">
-      <Stack.Screen
-      name ="Signup"
-      component={SignupScreen}/>
-      <Stack.Screen
-      name = "Login"
-      component={LoginScreen} />
+    <Stack.Navigator  initialRouteName={user ? 'Todo' : 'Login'}>
+      <Stack.Screen name="Signup" component={SignupScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen
         name="Todo"
         component={HomeDrawer}
         options={{
           animation: 'simple_push',
-          headerShown: false
+          headerShown: false,
         }}
       />
       <Stack.Screen
         name="AddTodo"
         component={AddTodoScreen}
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           animation: 'slide_from_bottom',
-          headerStyle:{backgroundColor:'#96a196ff'},
-          headerTintColor:'#e8e9ecff',
+          headerStyle: { backgroundColor: '#96a196ff' },
+          headerTintColor: '#e8e9ecff',
           headerLeft: () => (
             <MaterialIcons
               name="clear"
               color={'#e8e9ecff'}
               size={20}
-              style={{ paddingRight:15, paddingTop:6}}
+              style={{ paddingRight: 15, paddingTop: 6 }}
               onPress={navigation.goBack}
-              />
+            />
           ),
         })}
       />
@@ -50,21 +73,29 @@ const RootStack = () => {
         component={DetailsScreen}
         options={({ navigation }) => ({
           animation: 'slide_from_bottom',
-          headerStyle:{backgroundColor:'#96a196ff', },
-          headerTintColor:'#e8e9ecff',
+          headerStyle: { backgroundColor: '#96a196ff' },
+          headerTintColor: '#e8e9ecff',
           headerLeft: () => (
             <MaterialIcons
               name="clear"
               color={'#e8e9ecff'}
               size={20}
-              style={{ paddingRight:15, paddingTop:6}}
+              style={{ paddingRight: 15, paddingTop: 6 }}
               onPress={navigation.goBack}
-              />
+            />
           ),
         })}
       />
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default RootStack;

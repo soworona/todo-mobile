@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import InputComponent from '../../components/InputComponent';
-import BtnComponent from '../../components/BtnComponent';
+import InputComponent from '../../../components/InputComponent';
+import BtnComponent from '../../../components/BtnComponent';
 import { useEffect, useState } from 'react';
-import { RootStackScreenProps } from '../../navigation/types';
+import { RootStackScreenProps } from '../../../navigation/types';
 import {
   createUserWithEmailAndPassword,
   getAuth,

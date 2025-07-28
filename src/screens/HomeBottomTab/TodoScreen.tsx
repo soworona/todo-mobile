@@ -23,25 +23,7 @@ export type Task = {
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
   const dispatch = useAppDispatch();
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-
-  function handleAuthStateChanged(user: FirebaseAuthTypes.User | null) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
-    return subscriber;
-  }, []);
-
-  useEffect(() => {
-    if (!initializing && !user) {
-      navigation.replace('Login');
-    }
-  }, [user, initializing]);
-
+  
   // useEffect(() => {
   //   if (todoList.length === 0) {
   //     Toast.show({
@@ -52,9 +34,6 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   //   }
   // }, [todoList]);
 
-  if (initializing) return null;
-
-  if (!user) {
     return (
       <SafeAreaView style={styles.screen}>
         {/* Main container starts */}
@@ -82,8 +61,7 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
         />
       </SafeAreaView>
     );
-  }
-};
+  };
 
 const styles = StyleSheet.create({
   screen: {

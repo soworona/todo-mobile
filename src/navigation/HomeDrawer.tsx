@@ -27,8 +27,10 @@ export default function HomeDrawer({
 }: RootStackScreenProps<'Login'>) {
   const handleLogout = async () => {
 
-    signOut(getAuth()).then(() => navigation.navigate('Login'));
     await GoogleSignin.revokeAccess();
+    await GoogleSignin.signOut();
+
+    await signOut(getAuth()).then(() => navigation.navigate('Login'));
   };
 
   return (
