@@ -42,6 +42,16 @@ export async function deleteTodoFromFirestore(id: string) {
   const uid=getUserId()
   await firestore()
   .collection('Todo')
+  
   .doc(id)
   .delete()
+}
+
+export async function updateTodoInFirestore(id: string) {
+  const uid=getUserId()
+  const todoRef=firestore().collection('Todo').doc(id)
+  const doc= await todoRef.get()
+  const todo=doc.data()
+    if(todo)
+    await todoRef.update({isComplete:!todo.isComplete})
 }
