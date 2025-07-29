@@ -7,12 +7,6 @@ const getUserId = () => {
   return uid;
 };
 
-type FirestoreParams = {
-  tid: string;
-  title: string;
-  description: string;
-  isComplete: boolean;
-};
 
 export  async function addToFirestore(params: FirestoreParams) {
   const uid = getUserId();

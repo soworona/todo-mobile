@@ -2,11 +2,9 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
-import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { getTodoById } from '../../redux/slices/todoSlice';
 import { HomeTabScreenProps } from '../../navigation/types';
-import { useEffect, useState } from 'react';
-import Toast from 'react-native-toast-message';
+import { useState } from 'react';
 import {
   FirebaseAuthTypes,
   getAuth,
@@ -14,9 +12,10 @@ import {
 } from '@react-native-firebase/auth';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
-  const todoList = useAppSelector(state => state.todos.todos);
-  const dispatch = useAppDispatch();
-
+  // const todoList = useAppSelector(state => state.todos.todos);
+  // const dispatch = useAppDispatch();
+  const [todos, setTodos] = useState<FirestoreParams[]>([]);
+  const [loading, setLoading] = useState(true);
   const user = getAuth().currentUser;
 
   // useEffect(() => {
