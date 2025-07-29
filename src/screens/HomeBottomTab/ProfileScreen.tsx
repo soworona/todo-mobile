@@ -1,4 +1,5 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import ProfileTaskDetail from '../../components/ProfileTaskDetail';
 
 const ProfileScreen = () => {
   return (
@@ -21,7 +22,10 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.card}>
-                  <Text>Profile</Text>
+                  <Text>About</Text>
+                  <ProfileTaskDetail type="all"/>
+                  <ProfileTaskDetail type="active"/>
+                  <ProfileTaskDetail type="completed" />
       </View>
     </View>
   );
@@ -77,7 +81,8 @@ bgImg: {
     borderTopStartRadius: 20,
     zIndex: 1,
     marginTop:220,
-    padding: 20
+    padding: 20,
+    gap: 20
   }
 });
 
