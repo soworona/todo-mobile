@@ -1,5 +1,6 @@
 import { getAuth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { FirestoreParams } from '../types/FirestoreParamas';
 
 const getUserId = () => {
   const uid = getAuth().currentUser?.uid;
@@ -12,7 +13,7 @@ export  async function addToFirestore(params: FirestoreParams) {
   const uid = getUserId();
   await firestore()
     .collection('Todo')
-    .doc(params.tid)
+    .doc(params.id)
     .set({
       ...params,
       uid,
@@ -28,7 +29,7 @@ export async function getTodosFromFirestore() {
   const todos: FirestoreParams[] = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
-        tid: doc.id,
+        id: doc.id,
         title: data.title,
         description: data.description,
         isComplete: data.isComplete,
@@ -36,4 +37,5 @@ export async function getTodosFromFirestore() {
     });
   return todos;
 }
+
 

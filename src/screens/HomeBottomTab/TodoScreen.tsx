@@ -4,19 +4,39 @@ import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
 import { getTodoById } from '../../redux/slices/todoSlice';
 import { HomeTabScreenProps } from '../../navigation/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   FirebaseAuthTypes,
   getAuth,
   onAuthStateChanged,
 } from '@react-native-firebase/auth';
+import { FirestoreParams } from '../../types/FirestoreParamas';
+import { getTodosFromFirestore } from '../../utils/Firestore';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   // const todoList = useAppSelector(state => state.todos.todos);
   // const dispatch = useAppDispatch();
+
   const [todos, setTodos] = useState<FirestoreParams[]>([]);
   const [loading, setLoading] = useState(true);
   const user = getAuth().currentUser;
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      setLoading(true);
+      try {
+        const data = await getTodosFromFirestore();
+        if (data) console.log(data);
+        setTodos(data);
+      } catch (error) {
+        console.error('Failed to load todos', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTodos();
+  }, []);
 
   // useEffect(() => {
   //   if (todoList.length === 0) {
@@ -28,20 +48,19 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   //   }
   // }, [todoList]);
 
-  console.log('current user 123:', user);
 
   return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
 
       <FlatList
-        data={todoList}
+        data={todos}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <TaskCardComponent
             task={item}
             onPress={() => {
-              dispatch(getTodoById(item.id));
+              // dispatch(getTodoById(item.id));
               navigation.navigate('Details');
             }}
           />

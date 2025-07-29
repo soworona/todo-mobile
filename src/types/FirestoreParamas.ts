@@ -1,5 +1,5 @@
 export type FirestoreParams = {
-  tid: string;
+  id: string;
   title: string;
   description: string;
   isComplete: boolean;
