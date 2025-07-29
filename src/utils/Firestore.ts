@@ -38,4 +38,10 @@ export async function getTodosFromFirestore() {
   return todos;
 }
 
-
+export async function deleteTodoFromFirestore(id: string) {
+  const uid=getUserId()
+  await firestore()
+  .collection('Todos')
+  .doc(id)
+  .delete()
+}
