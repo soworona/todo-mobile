@@ -31,6 +31,7 @@ export default function HomeDrawer() {
           fontWeight: '300',
           fontSize: 20,
         },
+        
         headerRight: () => (
           <View style={{ marginRight: 20 }}>
             <Image
