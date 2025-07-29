@@ -6,17 +6,15 @@ import {
 } from '@react-navigation/drawer';
 import ActiveTodoScreen from '../screens/MenuTopTab/ActiveTodoScreen';
 import CompletedTodoScreen from '../screens/MenuTopTab/CompletedTodoScreen';
-import { MenuDrawerParamList, RootStackScreenProps } from './types';
+import {
+  HomeDrawerScreenProps,
+  MenuDrawerParamList,
+  RootStackScreenProps,
+} from './types';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import {
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, ImageBackground, Text, View } from 'react-native';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
@@ -24,13 +22,16 @@ const Drawer = createDrawerNavigator<MenuDrawerParamList>();
 
 export default function HomeDrawer({
   navigation,
-}: RootStackScreenProps<'Login'>) {
+}: HomeDrawerScreenProps<'BottomTab'>) {
   const handleLogout = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
 
-    await GoogleSignin.revokeAccess();
-    await GoogleSignin.signOut();
-
-    await signOut(getAuth()).then(() => navigation.navigate('Login'));
+      await signOut(getAuth());
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   return (
@@ -97,22 +98,22 @@ export default function HomeDrawer({
               </ImageBackground>
               <DrawerItemList {...props} />
             </View>
-              <DrawerItem
-                label="Logout"
-                onPress={handleLogout}
-                style={{
-                  backgroundColor: '#729b74ff',
-                  borderRadius: 15,
-                  marginBottom: 30,
-                  marginHorizontal: 10,
-                  justifyContent: 'center',
-                }}
-                labelStyle={{
-                  color: 'white',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                }}
-              />
+            <DrawerItem
+              label="Logout"
+              onPress={handleLogout}
+              style={{
+                backgroundColor: '#729b74ff',
+                borderRadius: 15,
+                marginBottom: 30,
+                marginHorizontal: 10,
+                justifyContent: 'center',
+              }}
+              labelStyle={{
+                color: 'white',
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            />
           </View>
         );
       }}

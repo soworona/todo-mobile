@@ -13,6 +13,9 @@ import {
   onAuthStateChanged,
 } from '@react-native-firebase/auth';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import AppStack from './AppStack';
+import AuthStack from './AuthStack';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -28,7 +31,7 @@ const RootStack = () => {
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged);
     return subscriber;
-  }, []);
+  });
 
   if (initializing) {
     return (
@@ -39,55 +42,60 @@ const RootStack = () => {
   }
 
   return (
-    <Stack.Navigator  initialRouteName={user ? 'Todo' : 'Login'}>
-      <Stack.Screen name="Signup" component={SignupScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen
-        name="Todo"
-        component={HomeDrawer}
-        options={{
-          animation: 'simple_push',
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="AddTodo"
-        component={AddTodoScreen}
-        options={({ navigation }) => ({
-          animation: 'slide_from_bottom',
-          headerStyle: { backgroundColor: '#96a196ff' },
-          headerTintColor: '#e8e9ecff',
-          headerLeft: () => (
-            <MaterialIcons
-              name="clear"
-              color={'#e8e9ecff'}
-              size={20}
-              style={{ paddingRight: 15, paddingTop: 6 }}
-              onPress={navigation.goBack}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        options={({ navigation }) => ({
-          animation: 'slide_from_bottom',
-          headerStyle: { backgroundColor: '#96a196ff' },
-          headerTintColor: '#e8e9ecff',
-          headerLeft: () => (
-            <MaterialIcons
-              name="clear"
-              color={'#e8e9ecff'}
-              size={20}
-              style={{ paddingRight: 15, paddingTop: 6 }}
-              onPress={navigation.goBack}
-            />
-          ),
-        })}
-      />
-    </Stack.Navigator>
+    <NavigationContainer>
+      {user ? <AppStack /> : <AuthStack />}
+    </NavigationContainer>
   );
+  // return (
+  //   <Stack.Navigator initialRouteName={user ? 'Todo' : 'Login'}>
+  //     <Stack.Screen name="Signup" component={SignupScreen} />
+  //     <Stack.Screen name="Login" component={LoginScreen} />
+  //     <Stack.Screen
+  //       name="Todo"
+  //       component={HomeDrawer}
+  //       options={{
+  //         animation: 'simple_push',
+  //         headerShown: false,
+  //       }}
+  //     />
+  //     <Stack.Screen
+  //       name="AddTodo"
+  //       component={AddTodoScreen}
+  //       options={({ navigation }) => ({
+  //         animation: 'slide_from_bottom',
+  //         headerStyle: { backgroundColor: '#96a196ff' },
+  //         headerTintColor: '#e8e9ecff',
+  //         headerLeft: () => (
+  //           <MaterialIcons
+  //             name="clear"
+  //             color={'#e8e9ecff'}
+  //             size={20}
+  //             style={{ paddingRight: 15, paddingTop: 6 }}
+  //             onPress={navigation.goBack}
+  //           />
+  //         ),
+  //       })}
+  //     />
+  //     <Stack.Screen
+  //       name="Details"
+  //       component={DetailsScreen}
+  //       options={({ navigation }) => ({
+  //         animation: 'slide_from_bottom',
+  //         headerStyle: { backgroundColor: '#96a196ff' },
+  //         headerTintColor: '#e8e9ecff',
+  //         headerLeft: () => (
+  //           <MaterialIcons
+  //             name="clear"
+  //             color={'#e8e9ecff'}
+  //             size={20}
+  //             style={{ paddingRight: 15, paddingTop: 6 }}
+  //             onPress={navigation.goBack}
+  //           />
+  //         ),
+  //       })}
+  //     />
+  //   </Stack.Navigator>
+  // );
 };
 
 const styles = StyleSheet.create({

@@ -1,6 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
-import InputComponent from '../../../components/InputComponent';
-import BtnComponent from '../../../components/BtnComponent';
+import { StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import {
   HomeTabScreenProps,
@@ -13,13 +11,9 @@ import {
   signInWithCredential,
 } from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
-import Divider from '../../../components/Divider';
-import LoginOptionBtn from '../../../components/LoginOptionBtn ';
-import {
-  GoogleSignin,
-  statusCodes,
-  GoogleSigninButton,
-} from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import InputComponent from '@components/InputComponent';
+import BtnComponent from '@components/BtnComponent';
 
 type Error = {
   email?: string;
@@ -92,16 +86,12 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
   const onGoogleButtonPress = async () => {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     const userInfo = await GoogleSignin.signIn();
-    console.log('userinfo', userInfo);
-    navigation.navigate('Todo');
-    let idToken = userInfo.data?.idToken; 
+    let idToken = userInfo.data?.idToken;
     if (!idToken) {
       throw new Error('No ID token found');
     }
-    const googleCredential = GoogleAuthProvider.credential(
-      userInfo.data?.idToken,
-    );
-
+    const googleCredential = GoogleAuthProvider.credential(idToken);
+    navigation.navigate('Todo');
     return signInWithCredential(getAuth(), googleCredential);
   };
 
@@ -130,7 +120,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
         <BtnComponent
           label="Sign up here"
           onPress={() => {
-          navigation.navigate('Signup')
+            navigation.navigate('Signup');
           }}
         />
       </View>
@@ -142,8 +132,8 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
           gap: 10,
         }}
       >
-        <Divider /> 
-         <Divider />
+        <Divider />
+        <Divider />
       </View>
       <View>
         <LoginOptionBtn

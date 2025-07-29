@@ -13,12 +13,12 @@ import {
   onAuthStateChanged,
 } from '@react-native-firebase/auth';
 
-
-
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);
   const dispatch = useAppDispatch();
-  
+
+  const user = getAuth().currentUser;
+
   // useEffect(() => {
   //   if (todoList.length === 0) {
   //     Toast.show({
@@ -29,34 +29,36 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   //   }
   // }, [todoList]);
 
-    return (
-      <SafeAreaView style={styles.screen}>
-        {/* Main container starts */}
+  console.log('current user 123:', user);
 
-        <FlatList
-          data={todoList}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <TaskCardComponent
-              task={item}
-              onPress={() => {
-                dispatch(getTodoById(item.id));
-                navigation.navigate('Details');
-              }}
-            />
-          )}
-          contentContainerStyle={styles.container}
-        />
+  return (
+    <SafeAreaView style={styles.screen}>
+      {/* Main container starts */}
 
-        {/* Main container ends */}
-        <AddBtnComponent
-          onPress={() => {
-            navigation.navigate('AddTodo');
-          }}
-        />
-      </SafeAreaView>
-    );
-  };
+      <FlatList
+        data={todoList}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <TaskCardComponent
+            task={item}
+            onPress={() => {
+              dispatch(getTodoById(item.id));
+              navigation.navigate('Details');
+            }}
+          />
+        )}
+        contentContainerStyle={styles.container}
+      />
+
+      {/* Main container ends */}
+      <AddBtnComponent
+        onPress={() => {
+          navigation.navigate('AddTodo');
+        }}
+      />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   screen: {

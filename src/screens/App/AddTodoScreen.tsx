@@ -2,26 +2,24 @@ import { View } from 'react-native';
 import InputComponent from '../../components/InputComponent';
 import { useState } from 'react';
 import BtnComponent from '../../components/BtnComponent';
-import { useAppDispatch } from '../../redux/hook';
-import { addTodo } from '../../redux/slices/todoSlice';
 import { RootStackScreenProps, StackParamList } from '../../navigation/types';
-import firestore, { addDoc, collection } from '@react-native-firebase/firestore';
-import { FIRESTORE_DB } from '../../firebase/firebaseConfig';
+import addToFirestore from '../../utils/Firestore';
+import { nanoid } from '@reduxjs/toolkit';
 
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleSaveTodo = () => {
-    dispatch(addTodo({ title, description }));
-    saveToFirestore();
+    // dispatch(addTodo({ title, description }));
+    addToFirestore({
+      tid: nanoid(),
+      title,
+      description,
+      isComplete: false,
+    });
     navigation.goBack();
-  };
-
-  const saveToFirestore = async () => {
-    await addDoc(collection(FIRESTORE_DB, 'todos'))
-    console.log('firebase worked');
   };
 
   return (
