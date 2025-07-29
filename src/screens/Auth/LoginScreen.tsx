@@ -51,7 +51,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
             text2: 'Successfully signed in.',
           });
 
-          navigation.navigate('Todo');
+          navigation.navigate('HomeDrawer');
         })
         .catch(error => {
           let message = 'Something went wrong';
@@ -90,7 +90,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
       throw new Error('No ID token found');
     }
     const googleCredential = GoogleAuthProvider.credential(idToken);
-    navigation.navigate('Todo');
+    navigation.navigate('HomeDrawer');
     return signInWithCredential(getAuth(), googleCredential);
   };
 

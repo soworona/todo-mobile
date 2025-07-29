@@ -1,6 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { Task } from "../../screens/HomeBottomTab/TodoScreen";
 import Toast from "react-native-toast-message";
+import { Task } from "../../types/Task";
 
 type TodoState = {
     todos: Task[],

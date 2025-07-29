@@ -18,14 +18,8 @@ const Drawer = createDrawerNavigator<DrawerParamList>();
 export default function HomeDrawer() {
   const navigation = useNavigation<HomeDrawerScreenProps<'BottomTab'>['navigation']>();
   const handleLogout = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-
-      await signOut(getAuth());
-    } catch (err: any) {
-      console.log(err);
-    }
+    await signOut(getAuth());
+    GoogleSignin.revokeAccess();
   };
 
   return (

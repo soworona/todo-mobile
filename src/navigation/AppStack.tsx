@@ -10,7 +10,7 @@ export default function AppStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Todo"
+        name="HomeDrawer"
         component={HomeDrawer}
         options={{ headerShown: false }}
       />

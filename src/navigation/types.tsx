@@ -8,7 +8,7 @@ import {
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type StackParamList = {
-  Todo: undefined;
+  HomeDrawer: undefined;
   AddTodo: undefined;
   Details: undefined;
   Login: undefined;

@@ -14,7 +14,7 @@ type FirestoreParams = {
   isComplete: boolean;
 };
 
-export default async function addToFirestore(params: FirestoreParams) {
+export  async function addToFirestore(params: FirestoreParams) {
   const uid = getUserId();
   await firestore()
     .collection('Todo')
@@ -24,3 +24,22 @@ export default async function addToFirestore(params: FirestoreParams) {
       uid,
     });
 }
+
+export async function getTodosFromFirestore() {
+  const uid=getUserId();
+  const snapshot = await firestore()
+    .collection('Todo')
+    .where('uid', '==', uid)
+    .get()
+  const todos: FirestoreParams[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        tid: doc.id,
+        title: data.title,
+        description: data.description,
+        isComplete: data.isComplete,
+      };
+    });
+  return todos;
+}
+
