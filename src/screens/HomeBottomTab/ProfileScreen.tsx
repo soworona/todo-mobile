@@ -58,8 +58,8 @@ bgImg: {
     height: 90,
     borderRadius: 45,
     borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: '#333333',
+    backgroundColor: '#333333',
   },
   heading: {
     fontSize: 20,
