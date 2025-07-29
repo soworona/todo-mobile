@@ -7,14 +7,12 @@ import {
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export type AuthStackParamList = {
-  Login: undefined;
-  Signup: undefined;
-};
 export type StackParamList = {
-  Todo: NavigatorScreenParams<BottomTabParamList>;
+  Todo: undefined;
   AddTodo: undefined;
   Details: undefined;
+  Login: undefined;
+  Signup: undefined;
 };
 
 export type BottomTabParamList = {
@@ -29,11 +27,12 @@ export type MaterialTopParamList = {
   Completed: undefined;
 };
 
-export type MenuDrawerParamList = {
+export type DrawerParamList = {
   BottomTab: undefined;
   Completed: undefined;
   Active: undefined;
 };
+
 
 export type RootStackScreenProps<T extends keyof StackParamList> =
   NativeStackScreenProps<StackParamList, T>;
@@ -50,9 +49,9 @@ export type MenuTopTabScreenProps<T extends keyof MaterialTopParamList> =
     HomeTabScreenProps<'Menu'>
   >;
 
-export type HomeDrawerScreenProps<T extends keyof MenuDrawerParamList> =
+export type HomeDrawerScreenProps<T extends keyof DrawerParamList> =
   CompositeScreenProps<
-    DrawerScreenProps<MenuDrawerParamList, T>,
+    DrawerScreenProps<DrawerParamList, T>,
     RootStackScreenProps<keyof StackParamList>
   >;
 

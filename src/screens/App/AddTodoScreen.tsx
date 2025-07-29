@@ -2,9 +2,9 @@ import { View } from 'react-native';
 import InputComponent from '../../components/InputComponent';
 import { useState } from 'react';
 import BtnComponent from '../../components/BtnComponent';
-import { RootStackScreenProps, StackParamList } from '../../navigation/types';
-import addToFirestore from '../../utils/Firestore';
+import { RootStackScreenProps } from '../../navigation/types';
 import { nanoid } from '@reduxjs/toolkit';
+import addToFirestore from '../../utils/Firestore';
 
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');

@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
-import InputComponent from '../../../components/InputComponent';
-import BtnComponent from '../../../components/BtnComponent';
-import { useEffect, useState } from 'react';
-import { RootStackScreenProps } from '../../../navigation/types';
+import { StyleSheet, View } from 'react-native';
+import { useState } from 'react';
 import {
   createUserWithEmailAndPassword,
   getAuth,
 } from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
+import { RootStackScreenProps } from '../../navigation/types';
+import InputComponent from '../../components/InputComponent';
+import BtnComponent from '../../components/BtnComponent';
 
 type Error = {
   email?: string;
@@ -33,15 +33,12 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
 
     if (!password) {
       errors.password = 'Field cannot be empty';
-
     }
 
-    if(!confirmPassword) {
+    if (!confirmPassword) {
       errors.confirmPassword = 'Field cannot be empty';
-
     } else if (password !== confirmPassword) {
       errors.confirmPassword = 'Passwords do not match';
-
     }
 
     setErrors(errors);
@@ -87,7 +84,6 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
         errorMessage={errors.email}
       />
 
-
       <InputComponent
         label="Password"
         value={password}
@@ -125,7 +121,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  }
+  },
 });
 
 export default SignupScreen;

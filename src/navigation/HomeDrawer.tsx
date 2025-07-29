@@ -1,28 +1,22 @@
 import {
   createDrawerNavigator,
-  DrawerContentScrollView,
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
 import ActiveTodoScreen from '../screens/MenuTopTab/ActiveTodoScreen';
 import CompletedTodoScreen from '../screens/MenuTopTab/CompletedTodoScreen';
-import {
-  HomeDrawerScreenProps,
-  MenuDrawerParamList,
-  RootStackScreenProps,
-} from './types';
+import { HomeDrawerScreenProps, DrawerParamList } from './types';
 import HomeBottomTabs from './HomeBottomTabs';
 import React from 'react';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, useNavigation } from '@react-navigation/native';
 import { Image, ImageBackground, Text, View } from 'react-native';
 import { getAuth, signOut } from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-const Drawer = createDrawerNavigator<MenuDrawerParamList>();
+const Drawer = createDrawerNavigator<DrawerParamList>();
 
-export default function HomeDrawer({
-  navigation,
-}: HomeDrawerScreenProps<'BottomTab'>) {
+export default function HomeDrawer() {
+  const navigation = useNavigation<HomeDrawerScreenProps<'BottomTab'>['navigation']>();
   const handleLogout = async () => {
     try {
       await GoogleSignin.revokeAccess();

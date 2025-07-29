@@ -1,11 +1,3 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackParamList } from './types';
-import AddTodoScreen from '../screens/RootStack/AddTodoScreen';
-import MaterialIcons from '@react-native-vector-icons/material-icons';
-import DetailsScreen from '../screens/RootStack/DetailsScreen';
-import HomeDrawer from './HomeDrawer';
-import SignupScreen from '../screens/RootStack/AuthStack/SignupScreen';
-import LoginScreen from '../screens/RootStack/AuthStack/LoginScreen';
 import { useEffect, useState } from 'react';
 import {
   FirebaseAuthTypes,
@@ -16,8 +8,6 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppStack from './AppStack';
 import AuthStack from './AuthStack';
-
-const Stack = createNativeStackNavigator<StackParamList>();
 
 const RootStack = () => {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
@@ -41,11 +31,8 @@ const RootStack = () => {
     );
   }
 
-  return (
-    <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
-    </NavigationContainer>
-  );
+  return  user ? <AppStack /> : <AuthStack />
+
   // return (
   //   <Stack.Navigator initialRouteName={user ? 'Todo' : 'Login'}>
   //     <Stack.Screen name="Signup" component={SignupScreen} />

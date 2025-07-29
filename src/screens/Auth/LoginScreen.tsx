@@ -1,10 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import {
-  HomeTabScreenProps,
-  RootStackScreenProps,
-} from '../../../navigation/types';
-import {
   signInWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
@@ -12,15 +8,18 @@ import {
 } from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import InputComponent from '@components/InputComponent';
-import BtnComponent from '@components/BtnComponent';
+import { RootStackScreenProps } from '../../navigation/types';
+import InputComponent from '../../components/InputComponent';
+import BtnComponent from '../../components/BtnComponent';
+import Divider from '../../components/Divider';
+import LoginOptionBtn from '../../components/LoginOptionBtn ';
 
 type Error = {
   email?: string;
   password?: string;
 };
 
-const LoginScreen = ({ navigation }: RootStackScreenProps<'Todo'>) => {
+const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Error>({});
