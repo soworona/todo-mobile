@@ -10,20 +10,21 @@ type TaskCardComponentProps = {
   task: Task;
   onPress: () => void;
   onDelete: () => void;
+  onCheckboxPress : () => void
 
 };
 
 const TaskCardComponent = (props: TaskCardComponentProps) => {
   const dispatch = useAppDispatch();
 
-  const handleCheckBoxPress = () => {
-    dispatch(
-      toggleTodoStatus({
-        id: props.task.id,
-        isComplete: !props.task.isComplete,
-      }),
-    );
-  };
+  // const handleCheckBoxPress = () => {
+  //   dispatch(
+  //     toggleTodoStatus({
+  //       id: props.task.id,
+  //       isComplete: !props.task.isComplete,
+  //     }),
+  //   );
+  // };
 
   // const handleDeleteBtnPress = () => {
   //   dispatch(
@@ -38,7 +39,7 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <CheckBoxComponent
         isChecked={props.task.isComplete}
-        onPress={handleCheckBoxPress}
+        onPress={props.onCheckboxPress}
       />
       <Text
         style={[

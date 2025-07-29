@@ -11,7 +11,7 @@ import {
   onAuthStateChanged,
 } from '@react-native-firebase/auth';
 import { FirestoreParams } from '../../types/FirestoreParamas';
-import { deleteTodoFromFirestore, getTodosFromFirestore } from '../../utils/Firestore';
+import { deleteTodoFromFirestore, getTodosFromFirestore, updateTodoInFirestore } from '../../utils/Firestore';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   // const todoList = useAppSelector(state => state.todos.todos);
@@ -53,6 +53,12 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
     setTodos(prev => prev.filter(todo => todo.id !== id));
   }
 
+  const handleCheckboxPress = async (id:string) => {
+    await updateTodoInFirestore(id);
+     setTodos(prev => prev.map(todo => todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo)
+  );
+  }
+
   return (
     <SafeAreaView style={styles.screen}>
       {/* Main container starts */}
@@ -68,6 +74,8 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
               navigation.navigate('Details');
             }}
             onDelete= {() =>{handleOnDelete(item.id)}}
+            onCheckboxPress = {() => {handleCheckboxPress(item.id)}}
+
           />
         )}
         contentContainerStyle={styles.container}
