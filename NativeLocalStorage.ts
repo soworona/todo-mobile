@@ -1,6 +1,6 @@
 import type {TurboModule} from 'react-native';
 import {TurboModuleRegistry} from 'react-native';
-import { Task } from './src/screens/HomeBottomTab/TodoScreen';
+import { Task } from './src/types/Task';
 
 export interface Spec extends TurboModule {
   setItem(task: Task, key: string): void;

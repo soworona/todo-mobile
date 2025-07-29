@@ -13,12 +13,7 @@ import {
   onAuthStateChanged,
 } from '@react-native-firebase/auth';
 
-export type Task = {
-  id: string;
-  title: string;
-  description: string;
-  isComplete: boolean;
-};
+
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const todoList = useAppSelector(state => state.todos.todos);

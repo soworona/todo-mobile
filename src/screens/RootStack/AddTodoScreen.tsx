@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../redux/hook';
 import { addTodo } from '../../redux/slices/todoSlice';
 import { RootStackScreenProps, StackParamList } from '../../navigation/types';
 import firestore, { addDoc, collection } from '@react-native-firebase/firestore';
+import { FIRESTORE_DB } from '../../firebase/firebaseConfig';
 
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
