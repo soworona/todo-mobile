@@ -9,6 +9,8 @@ import { Task } from '../types/Task';
 type TaskCardComponentProps = {
   task: Task;
   onPress: () => void;
+  onDelete: () => void;
+
 };
 
 const TaskCardComponent = (props: TaskCardComponentProps) => {
@@ -23,13 +25,14 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
     );
   };
 
-  const handleDeleteBtnPress = () => {
-    dispatch(
-      deleteTodo({
-        id: props.task.id,
-      }),
-    );
-  };
+  // const handleDeleteBtnPress = () => {
+  //   dispatch(
+  //     deleteTodo({
+  //       id: props.task.id,
+  //     }),
+  //   );
+
+  // };
 
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
@@ -48,7 +51,7 @@ const TaskCardComponent = (props: TaskCardComponentProps) => {
         {props.task.title}
       </Text>
       <View style={styles.icon}>
-        <IconBtnComponent icon="home" onPress={handleDeleteBtnPress} />
+        <IconBtnComponent icon="home" onPress={props.onDelete} />
       </View>
     </TouchableOpacity>
   );

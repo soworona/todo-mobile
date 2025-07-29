@@ -11,7 +11,7 @@ import {
   onAuthStateChanged,
 } from '@react-native-firebase/auth';
 import { FirestoreParams } from '../../types/FirestoreParamas';
-import { getTodosFromFirestore } from '../../utils/Firestore';
+import { deleteTodoFromFirestore, getTodosFromFirestore } from '../../utils/Firestore';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   // const todoList = useAppSelector(state => state.todos.todos);
@@ -48,6 +48,10 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   //   }
   // }, [todoList]);
 
+  const handleOnDelete = async (id:string) => {
+    await deleteTodoFromFirestore(id);
+    setTodos(prev => prev.filter(todo => todo.id !== id));
+  }
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -63,6 +67,7 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
               // dispatch(getTodoById(item.id));
               navigation.navigate('Details');
             }}
+            onDelete= {() =>{handleOnDelete(item.id)}}
           />
         )}
         contentContainerStyle={styles.container}

@@ -41,7 +41,7 @@ export async function getTodosFromFirestore() {
 export async function deleteTodoFromFirestore(id: string) {
   const uid=getUserId()
   await firestore()
-  .collection('Todos')
+  .collection('Todo')
   .doc(id)
   .delete()
 }
