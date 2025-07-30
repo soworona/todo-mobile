@@ -4,7 +4,7 @@ import { useState } from 'react';
 import BtnComponent from '../../components/BtnComponent';
 import { RootStackScreenProps } from '../../navigation/types';
 import { nanoid } from '@reduxjs/toolkit';
-import addToFirestore from '../../utils/Firestore';
+import { addToFirestore } from '../../utils/TodoFirestore';
 
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
@@ -14,7 +14,7 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const handleSaveTodo = () => {
     // dispatch(addTodo({ title, description }));
     addToFirestore({
-      tid: nanoid(),
+      id: nanoid(),
       title,
       description,
       isComplete: false,

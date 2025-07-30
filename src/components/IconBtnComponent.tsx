@@ -1,6 +1,5 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from '@react-native-vector-icons/material-icons';
-import { useTheme } from '@react-navigation/native';
 
 type IconButtonProps = {
   icon: string;
@@ -10,14 +9,13 @@ type IconButtonProps = {
 const IconMap: Record<string, any> = {
   home: 'delete-outline',
   profile: 'face',
+  edit: 'edit-note'
 };
 
 const IconBtnComponent = (props: IconButtonProps) => {
-  const colors = useTheme().colors;
-
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Icon name={IconMap[props.icon]} size={24} color='#638265ff' />
+      <Icon name={IconMap[props.icon]} size={24} color={props.icon === "edit"? 'white' : '#638265ff'} />
     </TouchableOpacity>
   )
 };

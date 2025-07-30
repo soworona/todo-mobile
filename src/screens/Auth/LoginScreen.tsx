@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import {
   signInWithEmailAndPassword,
@@ -96,6 +96,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.heading}>Hello, there! Welcome back</Text>
       <View>
         <InputComponent
           label="Email"
@@ -132,6 +133,7 @@ const LoginScreen = ({ navigation }: RootStackScreenProps<'Login'>) => {
         }}
       >
         <Divider />
+        <Text>or</Text>
         <Divider />
       </View>
       <View>
@@ -149,7 +151,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     gap: 15,
+    justifyContent:'center'
   },
+  heading:{
+    fontSize:30,
+    fontWeight:600,
+    color:'#474b46ff'
+  }
 });
 
 export default LoginScreen;

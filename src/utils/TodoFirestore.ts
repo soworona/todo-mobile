@@ -1,6 +1,6 @@
 import { getAuth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { FirestoreParams } from '../types/FirestoreParamas';
+import { FirestoreParams } from '../types/FirestoreParams';
 
 const getUserId = () => {
   const uid = getAuth().currentUser?.uid;

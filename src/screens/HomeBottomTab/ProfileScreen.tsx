@@ -1,5 +1,6 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import ProfileTaskDetail from '../../components/ProfileTaskDetail';
+import IconBtnComponent from '../../components/IconBtnComponent';
 
 const ProfileScreen = () => {
   return (
@@ -9,15 +10,17 @@ const ProfileScreen = () => {
         style={styles.bgImg}
       />
       <View style={styles.header}>
+        
         <Image
           source={require('../../assets/Zhongli_Icon.webp')}
           style={styles.avatar}
-        />
+          />
         <View style={{
             justifyContent:'center'
         }}>
           <Text style={styles.heading}>Profile</Text>`{' '}
           <Text style={styles.subheading}>This is my bio. Hello~~~</Text>
+            <IconBtnComponent icon='edit' onPress={()=>{}}/>
         </View>
       </View>
 

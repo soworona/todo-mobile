@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
 import {
   createUserWithEmailAndPassword,
@@ -77,6 +77,7 @@ const SignupScreen = ({ navigation }: RootStackScreenProps<'Signup'>) => {
 
   return (
     <View style={styles.container}>
+            <Text style={styles.heading}>First time? Nice to meet you!</Text>
       <InputComponent
         label="Email"
         value={email}
@@ -121,7 +122,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    justifyContent:'center'
   },
+    heading:{
+    fontSize:30,
+    fontWeight:600,
+    color:'#474b46ff'
+  }
 });
 
 export default SignupScreen;

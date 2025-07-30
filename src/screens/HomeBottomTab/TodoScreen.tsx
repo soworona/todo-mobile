@@ -1,17 +1,16 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  getAuth,
+} from '@react-native-firebase/auth';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
+import { FlatList, PermissionsAndroid, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
-import { getTodoById } from '../../redux/slices/todoSlice';
 import { HomeTabScreenProps } from '../../navigation/types';
-import { useEffect, useState } from 'react';
-import {
-  FirebaseAuthTypes,
-  getAuth,
-  onAuthStateChanged,
-} from '@react-native-firebase/auth';
-import { FirestoreParams } from '../../types/FirestoreParamas';
-import { deleteTodoFromFirestore, getTodosFromFirestore, updateTodoInFirestore } from '../../utils/Firestore';
+import { FirestoreParams } from '../../types/FirestoreParams';
+import { checkToken, handleForegroundMessage } from '../../utils/FMC';
+import { deleteTodoFromFirestore, getTodosFromFirestore, updateTodoInFirestore } from '../../utils/TodoFirestore';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   // const todoList = useAppSelector(state => state.todos.todos);
@@ -21,12 +20,12 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const [loading, setLoading] = useState(true);
   const user = getAuth().currentUser;
 
-  useEffect(() => {
+useFocusEffect(
+  useCallback(() => {
     const loadTodos = async () => {
       setLoading(true);
       try {
         const data = await getTodosFromFirestore();
-        if (data) console.log(data);
         setTodos(data);
       } catch (error) {
         console.error('Failed to load todos', error);
@@ -36,8 +35,21 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
     };
 
     loadTodos();
-  }, []);
+  }, [])
+);
 
+useEffect(() => {
+   const requestAndCheck = async () => {
+      const permission = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+      );
+      console.log('Permission:', permission); 
+    }
+
+    requestAndCheck();
+    handleForegroundMessage();
+    checkToken();
+})
   // useEffect(() => {
   //   if (todoList.length === 0) {
   //     Toast.show({
