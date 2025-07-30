@@ -13,6 +13,7 @@ export type StackParamList = {
   Details: undefined;
   Login: undefined;
   Signup: undefined;
+  EditUser: undefined
 };
 
 export type BottomTabParamList = {

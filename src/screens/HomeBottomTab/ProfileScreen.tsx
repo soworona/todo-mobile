@@ -10,25 +10,26 @@ const ProfileScreen = () => {
         style={styles.bgImg}
       />
       <View style={styles.header}>
-        
         <Image
           source={require('../../assets/Zhongli_Icon.webp')}
           style={styles.avatar}
-          />
-        <View style={{
-            justifyContent:'center'
-        }}>
+        />
+        <View
+          style={{
+            justifyContent: 'center',
+          }}
+        >
           <Text style={styles.heading}>Profile</Text>`{' '}
           <Text style={styles.subheading}>This is my bio. Hello~~~</Text>
-            <IconBtnComponent icon='edit' onPress={()=>{}}/>
+          <IconBtnComponent icon="edit" onPress={() => {}} />
         </View>
       </View>
 
       <View style={styles.card}>
-                  <Text>About</Text>
-                  <ProfileTaskDetail type="all"/>
-                  <ProfileTaskDetail type="active"/>
-                  <ProfileTaskDetail type="completed" />
+        <Text>About</Text>
+        <ProfileTaskDetail type="all" />
+        <ProfileTaskDetail type="active" />
+        <ProfileTaskDetail type="completed" />
       </View>
     </View>
   );
@@ -38,23 +39,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-bgImg: {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  height: 260,
-  opacity: 0.79,
-},
+  bgImg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 260,
+    opacity: 0.79,
+  },
   header: {
-    position:'absolute',
+    position: 'absolute',
     right: 'auto',
-    justifyContent:'center',
+    justifyContent: 'center',
     alignContent: 'center',
-    left:30,
-    top:80,
+    left: 30,
+    top: 80,
     gap: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   avatar: {
     width: 90,
@@ -68,25 +69,23 @@ bgImg: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-
   },
   subheading: {
     fontSize: 14,
     fontWeight: '400',
     color: 'white',
     fontStyle: 'italic',
-
   },
-  card:{
-    backgroundColor:'white',
-    flex:1,
-    borderTopEndRadius:20,
+  card: {
+    backgroundColor: 'white',
+    flex: 1,
+    borderTopEndRadius: 20,
     borderTopStartRadius: 20,
     zIndex: 1,
-    marginTop:220,
+    marginTop: 220,
     padding: 20,
-    gap: 20
-  }
+    gap: 20,
+  },
 });
 
 export default ProfileScreen;
