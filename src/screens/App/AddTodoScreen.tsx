@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import InputComponent from '../../components/InputComponent';
 import { useState } from 'react';
 import BtnComponent from '../../components/BtnComponent';
@@ -10,6 +10,7 @@ import DateTimePickerComponent from '../../components/DateTimePickerComponent';
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [date, setDate] = useState(new Date());
   // const dispatch = useAppDispatch();
 
   const handleSaveTodo = () => {
@@ -31,7 +32,11 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
         value={description}
         onChangeText={setDescription}
       />
-      <DateTimePickerComponent />
+      <View>
+        <Text style={{ fontSize: 14 }}>Due on</Text>
+        <DateTimePickerComponent date={date} onChange={setDate}/>
+      </View>
+
       <BtnComponent label="Save" onPress={handleSaveTodo} />
       <BtnComponent
         label="Cancel"
@@ -48,5 +53,6 @@ const styles = {
     padding: 20,
     gap: 5,
   },
+  dateSection: {},
 };
 export default AddTodoScreen;
