@@ -6,14 +6,15 @@ import {
   NavigatorScreenParams,
 } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { TodoFirestoreParams } from '../types/FirestoreParams';
 
 export type StackParamList = {
   HomeDrawer: undefined;
   AddTodo: undefined;
-  Details: undefined;
+  Details: { id: string };
   Login: undefined;
   Signup: undefined;
-  EditUser: undefined
+  EditUser: undefined;
 };
 
 export type BottomTabParamList = {
@@ -33,7 +34,6 @@ export type DrawerParamList = {
   Completed: undefined;
   Active: undefined;
 };
-
 
 export type RootStackScreenProps<T extends keyof StackParamList> =
   NativeStackScreenProps<StackParamList, T>;

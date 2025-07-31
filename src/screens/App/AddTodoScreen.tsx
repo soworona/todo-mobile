@@ -20,6 +20,7 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
       title,
       description,
       isComplete: false,
+      dueDate: date
     });
     navigation.goBack();
 

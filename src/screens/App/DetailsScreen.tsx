@@ -1,24 +1,58 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
-import { useAppSelector } from '../../redux/hook';
+import { RootStackScreenProps, StackParamList } from '../../navigation/types';
+import { useEffect, useState } from 'react';
+import { getTodoDetails } from '../../utils/TodoFirestore';
 
-const DetailsScreen = () => {
-  const taskId = useAppSelector(state => state.todos.selectedTodoId);
-  const task = useAppSelector(state =>   state.todos.todos.find(t => t.id === taskId))
+type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
+
+const DetailsScreen = ({route}: RootStackScreenProps<'Details'>) => {
+  // const taskId = useAppSelector(state => state.todos.selectedTodoId);
+  // const task = useAppSelector(state =>   state.todos.todos.find(t => t.id === taskId))
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [isComplete, setIsComplete] = useState(Boolean);
+  const [dueDate, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
+
+
+  const id = route.params?.id
+useEffect(() => {
+  if (!id) return;
+  setLoading(true);
+  getTodoDetails(id)
+    .then(todo => {
+      if (todo) {
+        setTitle(todo.title);
+        setDescription(todo.description);
+        setIsComplete(todo.isComplete);
+        setDate(new Date(todo.dueDate));
+      }
+    })
+    .finally(() => setLoading(false));
+}, [id]);
+
+    
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.heading}>Title</Text>
-        <Text>{task?.title}</Text>
+        <Text>{title}</Text>
       </View>
       <View>
         <Text style={styles.heading}>Description</Text>
-        <Text>{task?.description}</Text>
+        <Text>{description}</Text>
       </View>
       <View>
         <Text style={styles.heading}>Status</Text>
-        <Text>{(task?.isComplete)? "Complete" : "Ongoing"}</Text>
+        <Text>{(isComplete)? "Complete" : "Ongoing"}</Text>
+      </View>
+      <View>
+        <Text style={styles.heading}>Due on</Text>
+        <Text>{dueDate.toLocaleDateString()}</Text>
       </View>
     </View>
+    
   );
 };
 

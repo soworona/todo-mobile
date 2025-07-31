@@ -1,6 +1,4 @@
-import {
-  getAuth,
-} from '@react-native-firebase/auth';
+import { getAuth } from '@react-native-firebase/auth';
 import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
 import { FlatList, PermissionsAndroid, StyleSheet } from 'react-native';
@@ -9,7 +7,12 @@ import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
 import { HomeTabScreenProps } from '../../navigation/types';
 import { checkToken, handleForegroundMessage } from '../../utils/FMC';
-import { deleteTodoFromFirestore, getTodosFromFirestore, updateTodoInFirestore } from '../../utils/TodoFirestore';
+import {
+  deleteTodoFromFirestore,
+  getTodoDetails,
+  getTodosFromFirestore,
+  updateTodoInFirestore,
+} from '../../utils/TodoFirestore';
 import { TodoFirestoreParams } from '../../types/FirestoreParams';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
@@ -20,32 +23,32 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   const [loading, setLoading] = useState(true);
   const user = getAuth().currentUser;
 
-useFocusEffect(
-  useCallback(() => {
-    const loadTodos = async () => {
-      setLoading(true);
-      try {
-        const data = await getTodosFromFirestore();
-        setTodos(data);
-      } catch (error) {
-        console.error('Failed to load todos', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const loadTodos = async () => {
+        setLoading(true);
+        try {
+          const data = await getTodosFromFirestore();
+          setTodos(data);
+        } catch (error) {
+          console.error('Failed to load todos', error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
-    loadTodos();
-  }, [])
-);
+      loadTodos();
+    }, []),
+  );
 
-useEffect(() => {
+  useEffect(() => {
     PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-      );
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    );
 
     handleForegroundMessage();
     checkToken();
-})
+  });
   // useEffect(() => {
   //   if (todoList.length === 0) {
   //     Toast.show({
@@ -56,16 +59,24 @@ useEffect(() => {
   //   }
   // }, [todoList]);
 
-  const handleOnDelete = async (id:string) => {
+  const handleOnDelete = async (id: string) => {
     await deleteTodoFromFirestore(id);
     setTodos(prev => prev.filter(todo => todo.id !== id));
-  }
+  };
 
-  const handleCheckboxPress = async (id:string) => {
+  const handleCheckboxPress = async (id: string) => {
     await updateTodoInFirestore(id);
-     setTodos(prev => prev.map(todo => todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo)
-  );
-  }
+    setTodos(prev =>
+      prev.map(todo =>
+        todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo,
+      ),
+    );
+  };
+
+  const handlePress = (id: string) => {
+    // const todo = await getTodoDetails(id);
+    navigation.navigate('Details', { id });
+  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -79,11 +90,14 @@ useEffect(() => {
             task={item}
             onPress={() => {
               // dispatch(getTodoById(item.id));
-              navigation.navigate('Details');
+              handlePress(item.id);
             }}
-            onDelete= {() =>{handleOnDelete(item.id)}}
-            onCheckboxPress = {() => {handleCheckboxPress(item.id)}}
-
+            onDelete={() => {
+              handleOnDelete(item.id);
+            }}
+            onCheckboxPress={() => {
+              handleCheckboxPress(item.id);
+            }}
           />
         )}
         contentContainerStyle={styles.container}
