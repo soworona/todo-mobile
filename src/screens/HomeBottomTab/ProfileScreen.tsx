@@ -1,8 +1,11 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import ProfileTaskDetail from '../../components/ProfileTaskDetail';
 import IconBtnComponent from '../../components/IconBtnComponent';
+import { HomeDrawerScreenProps, HomeTabScreenProps, RootStackScreenProps } from '../../navigation/types';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}: HomeTabScreenProps<'Profile'>) => {
+
+  
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -21,7 +24,9 @@ const ProfileScreen = () => {
         >
           <Text style={styles.heading}>Profile</Text>`{' '}
           <Text style={styles.subheading}>This is my bio. Hello~~~</Text>
-          <IconBtnComponent icon="edit" onPress={() => {}} />
+          <IconBtnComponent icon="edit" onPress={() => {
+            navigation.navigate('EditUser');
+          }} />
         </View>
       </View>
 

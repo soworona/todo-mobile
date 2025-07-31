@@ -1,6 +1,6 @@
 import { getAuth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { FirestoreParams } from '../types/FirestoreParams';
+import { TodoFirestoreParams } from '../types/FirestoreParams';
 
 const getUserId = () => {
   const uid = getAuth().currentUser?.uid;
@@ -9,10 +9,10 @@ const getUserId = () => {
 };
 
 
-export  async function addToFirestore(params: FirestoreParams) {
+export  async function addToFirestore(params: TodoFirestoreParams) {
   const uid = getUserId();
   await firestore()
-    .collection('Todo')
+    .collection('todos')
     .doc(params.id)
     .set({
       ...params,
@@ -23,10 +23,10 @@ export  async function addToFirestore(params: FirestoreParams) {
 export async function getTodosFromFirestore() {
   const uid=getUserId();
   const snapshot = await firestore()
-    .collection('Todo')
+    .collection('todos')
     .where('uid', '==', uid)
     .get()
-  const todos: FirestoreParams[] = snapshot.docs.map(doc => {
+  const todos: TodoFirestoreParams[] = snapshot.docs.map(doc => {
       const data = doc.data();
       return {
         id: doc.id,
@@ -41,7 +41,7 @@ export async function getTodosFromFirestore() {
 export async function deleteTodoFromFirestore(id: string) {
   const uid=getUserId()
   await firestore()
-  .collection('Todo')
+  .collection('todos')
   
   .doc(id)
   .delete()
@@ -49,7 +49,7 @@ export async function deleteTodoFromFirestore(id: string) {
 
 export async function updateTodoInFirestore(id: string) {
   const uid=getUserId()
-  const todoRef=firestore().collection('Todo').doc(id)
+  const todoRef=firestore().collection('todos').doc(id)
   const doc= await todoRef.get()
   const todo=doc.data()
     if(todo)

@@ -22,6 +22,7 @@ const EditUserScreen = ({ navigation }: RootStackScreenProps<'EditUser'>) => {
         label="Bio"
         value={bio}
         onChangeText={setBio}
+        
       />
       <BtnComponent label="Save" onPress={handleSaveTodo} />
       <BtnComponent

@@ -13,6 +13,7 @@ import InputComponent from '../../components/InputComponent';
 import BtnComponent from '../../components/BtnComponent';
 import Divider from '../../components/Divider';
 import LoginOptionBtn from '../../components/LoginOptionBtn ';
+import { addUserToFirestore } from '../../utils/UserFirestore';
 
 type Error = {
   email?: string;

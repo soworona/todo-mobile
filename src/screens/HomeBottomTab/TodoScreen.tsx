@@ -8,15 +8,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
 import { HomeTabScreenProps } from '../../navigation/types';
-import { FirestoreParams } from '../../types/FirestoreParams';
 import { checkToken, handleForegroundMessage } from '../../utils/FMC';
 import { deleteTodoFromFirestore, getTodosFromFirestore, updateTodoInFirestore } from '../../utils/TodoFirestore';
+import { TodoFirestoreParams } from '../../types/FirestoreParams';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   // const todoList = useAppSelector(state => state.todos.todos);
   // const dispatch = useAppDispatch();
 
-  const [todos, setTodos] = useState<FirestoreParams[]>([]);
+  const [todos, setTodos] = useState<TodoFirestoreParams[]>([]);
   const [loading, setLoading] = useState(true);
   const user = getAuth().currentUser;
 
@@ -39,14 +39,10 @@ useFocusEffect(
 );
 
 useEffect(() => {
-   const requestAndCheck = async () => {
-      const permission = await PermissionsAndroid.request(
+    PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
       );
-      console.log('Permission:', permission); 
-    }
 
-    requestAndCheck();
     handleForegroundMessage();
     checkToken();
 })

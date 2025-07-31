@@ -5,6 +5,7 @@ import BtnComponent from '../../components/BtnComponent';
 import { RootStackScreenProps } from '../../navigation/types';
 import { nanoid } from '@reduxjs/toolkit';
 import { addToFirestore } from '../../utils/TodoFirestore';
+import DateTimePickerComponent from '../../components/DateTimePickerComponent';
 
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
@@ -30,6 +31,7 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
         value={description}
         onChangeText={setDescription}
       />
+      <DateTimePickerComponent />
       <BtnComponent label="Save" onPress={handleSaveTodo} />
       <BtnComponent
         label="Cancel"
