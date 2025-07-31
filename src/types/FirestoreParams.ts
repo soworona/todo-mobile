@@ -3,6 +3,7 @@ export type TodoFirestoreParams = {
   title: string;
   description: string;
   isComplete: boolean;
+  dueDate: Date;
 };
 
 export type UserFireStoreParams = {

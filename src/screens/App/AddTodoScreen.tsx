@@ -22,6 +22,7 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
       isComplete: false,
     });
     navigation.goBack();
+
   };
 
   return (

@@ -33,6 +33,7 @@ export async function getTodosFromFirestore() {
         title: data.title,
         description: data.description,
         isComplete: data.isComplete,
+        dueDate: data.dueDate
       };
     });
   return todos;
