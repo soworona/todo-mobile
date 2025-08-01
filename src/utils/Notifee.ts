@@ -1,4 +1,8 @@
-import notifee, { TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee, {
+  EventType,
+  TimestampTrigger,
+  TriggerType,
+} from '@notifee/react-native';
 
 export async function createNotifeeChannel() {
   const permission = await notifee.requestPermission();
@@ -24,8 +28,12 @@ export async function onDisplayNotification(title: any, body: any) {
   return notificationId;
 }
 
-export async function scheduleNotification(taskId: string, title: string, dueDate: Date) {
-  const triggerTime = new Date(dueDate.getTime() - 5 * 60 * 1000);
+export async function scheduleNotification(
+  taskId: string,
+  title: string,
+  dueDate: Date,
+) {
+  const triggerTime = new Date(dueDate.getTime() - 1 * 60 * 1000);
   console.log('trigger time', triggerTime);
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
@@ -55,4 +63,16 @@ export async function scheduleNotification(taskId: string, title: string, dueDat
 
 export async function cancelNotification(notificationId: string) {
   await notifee.cancelNotification(notificationId);
+}
+
+export function handleNotificationTap(navigation: any) {
+  return notifee.onForegroundEvent(({ type, detail }) => {
+    switch (type) {
+      case EventType.PRESS:
+        const taskId = detail.notification?.data;
+        if (taskId) {
+          navigation.navigate('Details', { taskId });
+        }
+    }
+  });
 }

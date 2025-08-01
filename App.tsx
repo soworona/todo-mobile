@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import RootStack from './src/navigation/RootStack';
 import { persistor, store } from './src/redux/store';
 import { checkToken, handleForegroundMessage } from './src/utils/FirebaseMessaging';
-import { createNotifeeChannel } from './src/utils/Notifee';
+import { createNotifeeChannel, handleNotificationTap } from './src/utils/Notifee';
 
 import notifee, { EventType } from '@notifee/react-native';
 
@@ -34,16 +34,18 @@ export default function App() {
 
 useEffect(() => {
     const setupNotifications = async () => {
+      const navigation = useNavigation();
       if (Platform.OS === 'android' && Platform.Version >= 33) {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
       }
 
       await createNotifeeChannel();
+
       const deviceToken = await checkToken();
       console.log("device token", deviceToken);
 
-      const unsubscribe = handleForegroundMessage();
-      return unsubscribe
+      const unsubscribe = handleNotificationTap(navigation);
+      return unsubscribe;
 
       // const unsubscribe = handleForegroundMessage();
       // return unsubscribe; 
