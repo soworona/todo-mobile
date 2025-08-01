@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { createNotifeeChannel } from './src/utils/Notifee';
-import { checkToken } from './src/utils/FMC';
+import { checkToken, handleForegroundMessage } from './src/utils/FirebaseMessaging';
 
 export default function App() {
   
@@ -38,7 +38,11 @@ useEffect(() => {
       }
 
       await createNotifeeChannel();
-      await checkToken();
+      const deviceToken = await checkToken();
+      console.log("device token", deviceToken);
+
+      const unsubscribe = handleForegroundMessage();
+      return unsubscribe
 
       // const unsubscribe = handleForegroundMessage();
       // return unsubscribe; 

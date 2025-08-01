@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AddBtnComponent from '../../components/AddBtnComponent';
 import TaskCardComponent from '../../components/TaskCardComponent';
 import { HomeTabScreenProps } from '../../navigation/types';
-import { checkToken, handleForegroundMessage } from '../../utils/FMC';
+import { checkToken, handleForegroundMessage } from '../../utils/FirebaseMessaging';
 import {
   deleteTodoFromFirestore,
   getTodoDetails,
