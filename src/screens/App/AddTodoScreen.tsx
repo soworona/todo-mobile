@@ -16,8 +16,9 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
 
   const handleSaveTodo = async() => {
     // dispatch(addTodo({ title, description }));
+    const taskId = nanoid()
     addToFirestore({
-      id: nanoid(),
+      id: taskId,
       title,
       description,
       isComplete: false,
@@ -25,8 +26,7 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
     });
     navigation.goBack();
 
-    const n = await scheduleNotification(title, date);
-    console.log("from addtodp", n);
+    const n = await scheduleNotification(taskId, title, date);
   };
 
   return (

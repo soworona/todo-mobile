@@ -1,15 +1,16 @@
-import * as React from 'react';
-import { Provider } from 'react-redux';
-import { persistor, store } from './src/redux/store';
 import { NavigationContainer } from '@react-navigation/native';
-import RootStack from './src/navigation/RootStack';
-import { PersistGate } from 'redux-persist/integration/react';
-import Toast, { BaseToast } from 'react-native-toast-message';
-import { useEffect, useState } from 'react';
-import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
+import * as React from 'react';
+import { useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
-import { createNotifeeChannel } from './src/utils/Notifee';
+import Toast, { BaseToast } from 'react-native-toast-message';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import RootStack from './src/navigation/RootStack';
+import { persistor, store } from './src/redux/store';
 import { checkToken, handleForegroundMessage } from './src/utils/FirebaseMessaging';
+import { createNotifeeChannel } from './src/utils/Notifee';
+
+import notifee, { EventType } from '@notifee/react-native';
 
 export default function App() {
   

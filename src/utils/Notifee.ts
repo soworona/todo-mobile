@@ -1,14 +1,15 @@
 import notifee, { TimestampTrigger, TriggerType } from '@notifee/react-native';
 
 export async function createNotifeeChannel() {
-    const channelId = await notifee.createChannel({
+  const permission = await notifee.requestPermission();
+  console.log('Notification permission:', permission);
+  const channelId = await notifee.createChannel({
     id: 'default',
     name: 'Default Channel',
   });
-   
+  return channelId;
 }
 export async function onDisplayNotification(title: any, body: any) {
-  
   const notificationId = await notifee.displayNotification({
     title: title,
     body: body,
@@ -23,8 +24,9 @@ export async function onDisplayNotification(title: any, body: any) {
   return notificationId;
 }
 
-export async function scheduleNotification(title: string, dueDate: Date) {
-  const triggerTime = new Date(dueDate.getTime() - 2 * 60 * 1000);
+export async function scheduleNotification(taskId: string, title: string, dueDate: Date) {
+  const triggerTime = new Date(dueDate.getTime() - 5 * 60 * 1000);
+  console.log('trigger time', triggerTime);
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
     timestamp: triggerTime.getTime(),
@@ -35,6 +37,7 @@ export async function scheduleNotification(title: string, dueDate: Date) {
     {
       title,
       body: `"${title}" is due in 5 minutes!`,
+      data: { taskId },
       android: {
         channelId: 'default',
         pressAction: {

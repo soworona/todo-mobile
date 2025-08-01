@@ -5,7 +5,7 @@ const checkToken = async () => {
   await messaging().registerDeviceForRemoteMessages();
   const fcmToken = await messaging().getToken();
   if (fcmToken) {
-    console.log('Fcm token: ', fcmToken);
+    return fcmToken
   }
 };
 
