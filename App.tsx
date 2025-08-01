@@ -11,6 +11,7 @@ import { checkToken, handleForegroundMessage } from './src/utils/FirebaseMessagi
 import { createNotifeeChannel, handleNotificationTap } from './src/utils/Notifee';
 
 import notifee, { EventType } from '@notifee/react-native';
+import { navigationRef } from './src/navigation/NavigationService';
 
 export default function App() {
   
@@ -34,7 +35,6 @@ export default function App() {
 
 useEffect(() => {
     const setupNotifications = async () => {
-      const navigation = useNavigation();
       if (Platform.OS === 'android' && Platform.Version >= 33) {
         await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
       }
@@ -44,7 +44,7 @@ useEffect(() => {
       const deviceToken = await checkToken();
       console.log("device token", deviceToken);
 
-      const unsubscribe = handleNotificationTap(navigation);
+      const unsubscribe = handleNotificationTap();
       return unsubscribe;
 
       // const unsubscribe = handleForegroundMessage();
@@ -58,7 +58,7 @@ useEffect(() => {
 
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <RootStack />
         </NavigationContainer>
         <Toast config={toastConfig} />

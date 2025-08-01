@@ -12,7 +12,7 @@ const DetailsScreen = ({ route }: RootStackScreenProps<'Details'>) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isComplete, setIsComplete] = useState(Boolean);
-  const [dueDate, setDate] = useState(new Date());
+  const [dueDate, setDate] = useState('');
   const [loading, setLoading] = useState(false);
 
   const id = route.params?.id;
@@ -25,11 +25,32 @@ const DetailsScreen = ({ route }: RootStackScreenProps<'Details'>) => {
           setTitle(todo.title);
           setDescription(todo.description);
           setIsComplete(todo.isComplete);
-          setDate(new Date(todo.dueDate));
+
+          const parsedDate = todo.dueDate.toDate();
+          const parsedDateString =  formatDateToCustomString(parsedDate);
+          setDate(parsedDateString);
         }
       })
       .finally(() => setLoading(false));
   }, [id]);
+
+  const formatDateToCustomString = (date: Date) =>  {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0'); 
+  const day = `${date.getDate()}`.padStart(2, '0');
+
+  let hours = date.getHours();
+  const minutes = `${date.getMinutes()}`.padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+
+  const formattedTime = `${hours}:${minutes} ${ampm}`;
+
+  return `${year}-${month}-${day} ${formattedTime}`;
+}
+
 
   return (
     <View style={styles.container}>
@@ -47,13 +68,7 @@ const DetailsScreen = ({ route }: RootStackScreenProps<'Details'>) => {
       </View>
       <View>
         <Text style={styles.heading}>Due on</Text>
-        {/* <Text>
-          {new Intl.DateTimeFormat('en-US', {
-            dateStyle: 'medium',
-            timeStyle: 'short',
-            timeZone: 'Asia/Kathmandu',
-          }).format(dueDate)}
-        </Text> */}
+        <Text>{dueDate}</Text>
       </View>
     </View>
   );

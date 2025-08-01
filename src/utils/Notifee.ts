@@ -3,6 +3,7 @@ import notifee, {
   TimestampTrigger,
   TriggerType,
 } from '@notifee/react-native';
+import { navigate } from '../navigation/NavigationService';
 
 export async function createNotifeeChannel() {
   const permission = await notifee.requestPermission();
@@ -65,13 +66,13 @@ export async function cancelNotification(notificationId: string) {
   await notifee.cancelNotification(notificationId);
 }
 
-export function handleNotificationTap(navigation: any) {
+export function handleNotificationTap() {
   return notifee.onForegroundEvent(({ type, detail }) => {
     switch (type) {
       case EventType.PRESS:
-        const taskId = detail.notification?.data;
+        const taskId = String(detail.notification?.data);
         if (taskId) {
-          navigation.navigate('Details', { taskId });
+          navigate('Details', { id: taskId });
         }
     }
   });
