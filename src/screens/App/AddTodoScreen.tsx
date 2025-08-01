@@ -6,6 +6,7 @@ import { RootStackScreenProps } from '../../navigation/types';
 import { nanoid } from '@reduxjs/toolkit';
 import { addToFirestore } from '../../utils/TodoFirestore';
 import DateTimePickerComponent from '../../components/DateTimePickerComponent';
+import { scheduleNotification } from '../../utils/Notifee';
 
 const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [title, setTitle] = useState('');
@@ -13,7 +14,7 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
   const [date, setDate] = useState(new Date());
   // const dispatch = useAppDispatch();
 
-  const handleSaveTodo = () => {
+  const handleSaveTodo = async() => {
     // dispatch(addTodo({ title, description }));
     addToFirestore({
       id: nanoid(),
@@ -24,6 +25,8 @@ const AddTodoScreen = ({ navigation }: RootStackScreenProps<'AddTodo'>) => {
     });
     navigation.goBack();
 
+    const n = await scheduleNotification(title, date);
+    console.log("from addtodp", n);
   };
 
   return (

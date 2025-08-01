@@ -14,6 +14,7 @@ import {
   updateTodoInFirestore,
 } from '../../utils/TodoFirestore';
 import { TodoFirestoreParams } from '../../types/FirestoreParams';
+import { createNotifeeChannel } from '../../utils/Notifee';
 
 const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   // const todoList = useAppSelector(state => state.todos.todos);
@@ -42,13 +43,18 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
   );
 
   useEffect(() => {
-    PermissionsAndroid.request(
+  const setup = async () => {
+    await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
     );
+    await createNotifeeChannel();
+    // await handleForegroundMessage();
+    await checkToken();
+  }
 
-    handleForegroundMessage();
-    checkToken();
+  setup();
   });
+
   // useEffect(() => {
   //   if (todoList.length === 0) {
   //     Toast.show({

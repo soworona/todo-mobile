@@ -19,7 +19,6 @@ const handleForegroundMessage = () => {
           
       const { title, body } = remoteMessage.notification || {};
       const notificationId = await onDisplayNotification(title, body);
-      console.log("nid",notificationId)
     });
 
     return unsubscribe;
