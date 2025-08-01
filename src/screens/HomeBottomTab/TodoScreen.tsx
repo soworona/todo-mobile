@@ -42,18 +42,7 @@ const TodoScreen = ({ navigation }: HomeTabScreenProps<'Home'>) => {
     }, []),
   );
 
-  useEffect(() => {
-  const setup = async () => {
-    await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-    );
-    await createNotifeeChannel();
-    // await handleForegroundMessage();
-    await checkToken();
-  }
 
-  setup();
-  });
 
   // useEffect(() => {
   //   if (todoList.length === 0) {

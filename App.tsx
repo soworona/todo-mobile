@@ -7,6 +7,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Toast, { BaseToast } from 'react-native-toast-message';
 import { useEffect, useState } from 'react';
 import { FirebaseAuthTypes, getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
+import { PermissionsAndroid, Platform } from 'react-native';
+import { createNotifeeChannel } from './src/utils/Notifee';
+import { checkToken } from './src/utils/FMC';
 
 export default function App() {
   
@@ -28,7 +31,24 @@ export default function App() {
     ),
   };
 
+useEffect(() => {
+    const setupNotifications = async () => {
+      if (Platform.OS === 'android' && Platform.Version >= 33) {
+        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+      }
+
+      await createNotifeeChannel();
+      await checkToken();
+
+      // const unsubscribe = handleForegroundMessage();
+      // return unsubscribe; 
+    };
+
+    setupNotifications();
+  }, []);
+  
   return (
+
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <NavigationContainer>
