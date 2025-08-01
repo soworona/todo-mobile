@@ -6,7 +6,7 @@ import { getTodoDetails } from '../../utils/TodoFirestore';
 
 type DetailsRouteProp = RouteProp<StackParamList, 'Details'>;
 
-const DetailsScreen = ({route}: RootStackScreenProps<'Details'>) => {
+const DetailsScreen = ({ route }: RootStackScreenProps<'Details'>) => {
   // const taskId = useAppSelector(state => state.todos.selectedTodoId);
   // const task = useAppSelector(state =>   state.todos.todos.find(t => t.id === taskId))
   const [title, setTitle] = useState('');
@@ -15,24 +15,22 @@ const DetailsScreen = ({route}: RootStackScreenProps<'Details'>) => {
   const [dueDate, setDate] = useState(new Date());
   const [loading, setLoading] = useState(false);
 
+  const id = route.params?.id;
+  useEffect(() => {
+    if (!id) return;
+    setLoading(true);
+    getTodoDetails(id)
+      .then(todo => {
+        if (todo) {
+          setTitle(todo.title);
+          setDescription(todo.description);
+          setIsComplete(todo.isComplete);
+          setDate(new Date(todo.dueDate));
+        }
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  const id = route.params?.id
-useEffect(() => {
-  if (!id) return;
-  setLoading(true);
-  getTodoDetails(id)
-    .then(todo => {
-      if (todo) {
-        setTitle(todo.title);
-        setDescription(todo.description);
-        setIsComplete(todo.isComplete);
-        setDate(new Date(todo.dueDate));
-      }
-    })
-    .finally(() => setLoading(false));
-}, [id]);
-
-    
   return (
     <View style={styles.container}>
       <View>
@@ -45,14 +43,19 @@ useEffect(() => {
       </View>
       <View>
         <Text style={styles.heading}>Status</Text>
-        <Text>{(isComplete)? "Complete" : "Ongoing"}</Text>
+        <Text>{isComplete ? 'Complete' : 'Ongoing'}</Text>
       </View>
       <View>
         <Text style={styles.heading}>Due on</Text>
-        <Text>{dueDate.toLocaleDateString()}</Text>
+        {/* <Text>
+          {new Intl.DateTimeFormat('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+            timeZone: 'Asia/Kathmandu',
+          }).format(dueDate)}
+        </Text> */}
       </View>
     </View>
-    
   );
 };
 
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
   heading: {
     fontWeight: 600,
     fontSize: 20,
-    marginBottom: 5
+    marginBottom: 5,
   },
 });
 

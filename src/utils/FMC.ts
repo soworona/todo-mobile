@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import messaging from '@react-native-firebase/messaging';
-import Toast from "react-native-toast-message";
-import onDisplayNotification from "./Notifee";
+import { onDisplayNotification } from "./Notifee";
 
 const checkToken =  async () => {
   await messaging().registerDeviceForRemoteMessages();
@@ -20,12 +18,12 @@ const handleForegroundMessage = () => {
       // });
           
       const { title, body } = remoteMessage.notification || {};
-      onDisplayNotification(title, body);
-
+      const notificationId = await onDisplayNotification(title, body);
+      console.log("nid",notificationId)
     });
 
     return unsubscribe;
   };
 
 
-export {checkToken, handleForegroundMessage};
+export { checkToken, handleForegroundMessage };
